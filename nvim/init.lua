@@ -62,7 +62,6 @@ Plug 'tpope/vim-commentary'             -- [x] for easy comments within files
 Plug 'tpope/vim-surround'               -- [x] for surrounding code
 Plug 'sbdchd/neoformat'                 -- [x] for autoformating code
 Plug 'jpalardy/vim-slime'               -- [x] access to REPL like functionality
-Plug 'editorconfig/editorconfig-vim'    -- [x] for reading editorconfig file
 Plug 'folke/which-key.nvim'             -- [x] completion for available keystrokes
 
 Plug 'tpope/vim-fugitive'          -- [x] for working with Git
@@ -83,6 +82,7 @@ Plug 'hrsh7th/nvim-cmp'         -- [ ] cmp nvim plugin
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'         -- [ ] cmp snippets
 Plug 'onsails/lspkind.nvim'     -- [ ] hints for object types
+Plug 'folke/trouble.nvim'
 
 Plug 'nvim-lua/plenary.nvim'                    -- [x] for fuzzy finder
 Plug 'nvim-telescope/telescope.nvim'            -- [x] for fuzzy finder
@@ -96,6 +96,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'danymat/neogen' -- [x] automatic docgenerator
 
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' -- [x] better formatted lsp warnings
+Plug 'petertriho/nvim-scrollbar'
 
 Plug 'ggandor/lightspeed.nvim'      -- [x[ for easy vim movements
 
@@ -114,9 +115,33 @@ vim.call('plug#end')
 -- plugin/color.vim script
 -- g.colorscheme = "github_*"
 -- g.colorscheme = "kanagawa"
--- g.colorscheme = "gruvbox"
+g.colorscheme = "gruvbox"
 -- g.colorscheme = "everforest"
-g.colorscheme = "tokyonight"
+-- g.colorscheme = "tokyonight"
+
+----------------------------- TROUBLE NVIM ---------------------------------------------------
+require("trouble").setup {
+  position = "bottom", -- position of the list can be: bottom, top, left, right
+  height = 20, -- height of the trouble list when position is top or bottom
+}
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true}
+)
+
+----------------------------- NVIM SCROLLBAR -------------------------------------------------
+require("scrollbar").setup()
 
 ----------------------------- VIM SLIME ------------------------------------------------------
 g.slime_target = "kitty"
@@ -173,7 +198,6 @@ require('nvim-treesitter.configs').setup {
         "haskell",
         "javascript",
         "lua",
-        "norg",
         "python",
         "rust",
         "commonlisp",

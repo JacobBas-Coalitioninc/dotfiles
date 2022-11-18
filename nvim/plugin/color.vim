@@ -30,7 +30,7 @@ fun! ColorMyPencils()
     endif
 
     if g:colorscheme == "tokyonight"
-        colorscheme tokyonight-night
+        colorscheme tokyonight-moon
     endif 
 
     if g:colorscheme == "everforest"

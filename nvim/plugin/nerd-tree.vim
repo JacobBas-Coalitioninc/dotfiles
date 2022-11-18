@@ -1,2 +1,2 @@
 map <leader>t :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.vim$', '\~$', '__pycache__']
+let NERDTreeIgnore=['\~$', '__pycache__']
