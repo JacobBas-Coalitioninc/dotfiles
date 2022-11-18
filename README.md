@@ -8,6 +8,7 @@ Before running the setup, you should install the following programs:
 - Kitty terminal: https://sw.kovidgoyal.net/kitty/binary/
     - On mac you should be able to run: `curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin`.
     This should be confirmed with the above link.
+- NVM (node version manager) to install required LSP's for different languages. 
 
 To setup this repository, follow these steps:
 1. Clone this repo into your home directory `~/`: `git clone https://github.com/JacobBas-Coalitioninc/dotfiles.git`
