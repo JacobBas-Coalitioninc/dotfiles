@@ -24,6 +24,9 @@ cmd 'filetype indent plugin on'
 
 vim.keymap.set('', '<Space>', '<Nop>', { noremap = true, silent = false })
 g.mapleader = " "
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+opt.termguicolors = true
 
 opt.modifiable = true
 opt.belloff = 'all'
@@ -39,6 +42,7 @@ opt.scrolloff = 8
 opt.number = true
 opt.hidden = true
 -- opt.cmdheight = 0
+opt.mouse = ""
 
 opt.swapfile = false
 opt.backup = false
@@ -55,8 +59,8 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 
-Plug 'scrooloose/NERDTree'          -- [x] file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin'  -- [x] git status within nerdtree
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 
 Plug 'tpope/vim-commentary'             -- [x] for easy comments within files
 Plug 'tpope/vim-surround'               -- [x] for surrounding code
@@ -108,17 +112,12 @@ Plug 'projekt0n/github-nvim-theme' -- [x] github theme
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/everforest' -- [x] everforest theme
 Plug 'folke/tokyonight.nvim'
+Plug 'catppuccin/nvim'
 
 vim.call('plug#end')
 
--- setting the colorscheme easily; this should be done within the
--- plugin/color.vim script
--- g.colorscheme = "github_*"
--- g.colorscheme = "kanagawa"
-g.colorscheme = "gruvbox"
--- g.colorscheme = "everforest"
--- g.colorscheme = "tokyonight"
-
+-- TODO: want to start moving alot of this code out into it's own files so that I 
+-- can begin to clean up everything else here
 ----------------------------- TROUBLE NVIM ---------------------------------------------------
 require("trouble").setup {
   position = "bottom", -- position of the list can be: bottom, top, left, right
