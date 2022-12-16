@@ -1,14 +1,4 @@
--- I am going to want to add in some more configuration to here that is based on the
--- g.colorscheme variable that calls different if statements dependent on the color
--- that I am selecting
-
--- setting the colorscheme easily; this should be done within the
--- plugin/color.vim script
--- g.colorscheme = "github_*"
--- g.colorscheme = "kanagawa"
--- g.colorscheme = "gruvbox"
--- g.colorscheme = "everforest"
--- g.colorscheme = "tokyonight"
+local cmd = vim.cmd -- to exectue vim commands
 
 function ColorMyPencils()
     if (vim.g.colorscheme == "catppucin") then
@@ -55,25 +45,25 @@ function ColorMyPencils()
         })
 
         -- setup must be called before loading
-        vim.cmd.colorscheme "catppuccin"
+        cmd.colorscheme "catppuccin"
 
     elseif (vim.g.colorscheme == "kanagawa") then
-         vim.cmd.colorscheme "kanagawa"
+         cmd.colorscheme "kanagawa"
 
     elseif (vim.g.colorscheme == "tokyonight") then
-         vim.cmd.colorscheme "tokyonight-moon"
+         cmd.colorscheme "tokyonight-moon"
 
     elseif (vim.g.colorscheme == "gruvbox") then
-         vim.cmd("set background=dark")
+         cmd("set background=dark")
          vim.cmd.colorscheme "gruvbox"
 
-         vim.cmd("hi CursorLineNR guibg=None")
-         vim.cmd("highlight Normal guibg=none")
-         vim.cmd("highlight LineNr guifg=#ff8659")
-         vim.cmd("highlight LineNr guifg=#aed75f")
-         vim.cmd("highlight LineNr guifg=#5eacd3")
-         vim.cmd("highlight qfFileName guifg=#aed75f")
-         vim.cmd("hi TelescopeBorder guifg=#5eacd")
+         cmd("hi CursorLineNR guibg=None")
+         cmd("highlight Normal guibg=none")
+         cmd("highlight LineNr guifg=#ff8659")
+         cmd("highlight LineNr guifg=#aed75f")
+         cmd("highlight LineNr guifg=#5eacd3")
+         cmd("highlight qfFileName guifg=#aed75f")
+         cmd("hi TelescopeBorder guifg=#5eacd")
     end
 end
 
