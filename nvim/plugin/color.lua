@@ -59,11 +59,9 @@ function ColorMyPencils()
 
     elseif (vim.g.colorscheme == "kanagawa") then
          vim.cmd.colorscheme "kanagawa"
-    end
 
     elseif (vim.g.colorscheme == "tokyonight") then
          vim.cmd.colorscheme "tokyonight-moon"
-    end
 
     elseif (vim.g.colorscheme == "gruvbox") then
          vim.cmd("set background=dark")
