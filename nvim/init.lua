@@ -192,14 +192,11 @@ require("which-key").setup{}
 ----------------------------- TREE-SITTER ----------------------------------------------------
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
-        "elixir",
         "go",
-        "haskell",
         "javascript",
         "lua",
         "python",
         "rust",
-        "commonlisp",
     },
     highlight = { enable = true },
 }
