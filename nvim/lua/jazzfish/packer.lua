@@ -1,14 +1,18 @@
-local cmd = vim.cmd -- to exectue vim commands
-cmd [[packadd packer.nvim]]
+vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-
     -- TODO Maybe tryout undotree
     -- TODO Maybe tryout harpoon
 
+    -- PACKAGE MANAGER -----------------------------------------------------------------------
+    use { "wbthomason/packer.nvim" }
+
+    -- GENERAL -------------------------------------------------------------------------------
+    use 'nvim-lua/plenary.nvim' -- [x] for fuzzy finder
+
     -- FILES AND INFORMATION -----------------------------------------------------------------
-    use 'nvim-tree/nvim-web-devicons'
-    use 'nvim-tree/nvim-tree.lua'
+    use 'scrooloose/NERDTree' -- [x] file explorer
+    use 'Xuyuanp/nerdtree-git-plugin' -- [x] git status within nerdtree
     use 'nvim-lualine/lualine.nvim' -- [x] for a nice status line
 
     -- GIT INTEGRATIONS ----------------------------------------------------------------------
@@ -46,13 +50,14 @@ return require('packer').startup(function(use)
     }
 
     -- FUZZY FINDER --------------------------------------------------------------------------
-    use 'nvim-lua/plenary.nvim' -- [x] for fuzzy finder
     use 'nvim-telescope/telescope.nvim' -- [x] for fuzzy finder
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use 'sharkdp/fd' -- [x] optional: finder
+    use 'nvim-lua/popup.nvim'
+
+    -- TREE-SITTER ---------------------------------------------------------------------------
     use 'nvim-treesitter/nvim-treesitter' -- [x] optional: finder/preview
     use 'nvim-treesitter/playground' -- [x] for looking through tree-sitter output
-    use 'nvim-lua/popup.nvim'
     use 'nvim-treesitter/nvim-treesitter-context'
 
     -- DIAGNOSTICS ---------------------------------------------------------------------------
@@ -69,11 +74,11 @@ return require('packer').startup(function(use)
     use 'danymat/neogen' -- [x] automatic docgenerator
 
     -- THEMES --------------------------------------------------------------------------------
-    use "rebelot/kanagawa.nvim" -- [x] kanagawa
-    use 'projekt0n/github-nvim-theme' -- [x] github theme
+    -- use "rebelot/kanagawa.nvim" -- [x] kanagawa
+    -- use 'projekt0n/github-nvim-theme' -- [x] github theme
     use 'ellisonleao/gruvbox.nvim'
-    use 'sainnhe/everforest' -- [x] everforest theme
-    use 'folke/tokyonight.nvim'
-    use 'catppuccin/nvim'
+    -- use 'sainnhe/everforest' -- [x] everforest theme
+    -- use 'folke/tokyonight.nvim'
+    -- use 'catppuccin/nvim'
 
 end)

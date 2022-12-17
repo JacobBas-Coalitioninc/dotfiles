@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  NERDTree = {
+    loaded = true,
+    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/NERDTree",
+    url = "https://github.com/scrooloose/NERDTree"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -109,11 +114,6 @@ _G.packer_plugins = {
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
   },
-  everforest = {
-    loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/everforest",
-    url = "https://github.com/sainnhe/everforest"
-  },
   fd = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/fd",
@@ -123,11 +123,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
-  },
-  ["github-nvim-theme"] = {
-    loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/github-nvim-theme",
-    url = "https://github.com/projekt0n/github-nvim-theme"
   },
   ["go.nvim"] = {
     loaded = true,
@@ -143,11 +138,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/guihua.lua",
     url = "https://github.com/ray-x/guihua.lua"
-  },
-  ["kanagawa.nvim"] = {
-    loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
-    url = "https://github.com/rebelot/kanagawa.nvim"
   },
   ["lightspeed.nvim"] = {
     loaded = true,
@@ -189,10 +179,10 @@ _G.packer_plugins = {
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
   },
-  nvim = {
+  ["nerdtree-git-plugin"] = {
     loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim",
-    url = "https://github.com/catppuccin/nvim"
+    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nerdtree-git-plugin",
+    url = "https://github.com/Xuyuanp/nerdtree-git-plugin"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -209,11 +199,6 @@ _G.packer_plugins = {
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim-scrollbar",
     url = "https://github.com/petertriho/nvim-scrollbar"
   },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/nvim-tree/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -224,10 +209,10 @@ _G.packer_plugins = {
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
   },
-  ["nvim-web-devicons"] = {
+  ["packer.nvim"] = {
     loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
-    url = "https://github.com/nvim-tree/nvim-web-devicons"
+    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
   },
   playground = {
     loaded = true,
@@ -258,11 +243,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/Users/jacobbas/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["trouble.nvim"] = {
     loaded = true,
