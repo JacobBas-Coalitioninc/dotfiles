@@ -1,4 +1,3 @@
--- general setup for nvim tree
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -17,7 +16,6 @@ require("nvim-tree").setup({
   },
 })
 
--- setting up some keymaps for nvim-tree
 vim.keymap.set("n", "<leader>t", "<cmd>NvimTreeToggle<cr>",
   {silent = true, noremap = true}
 )
