@@ -7,7 +7,7 @@ require('nvim-treesitter.configs').setup {
         "rust",
         "vim",
     },
-    highlight = { 
+    highlight = {
         enable = true ,
         disable = { "vim" }
     },
