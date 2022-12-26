@@ -7,17 +7,6 @@ vim.keymap.set("n", "<leader>w<Up>", "<C-w>k", {})        -- move to up window
 vim.keymap.set("n", "<leader>b", "<C-o>", {})             -- go to previous cursor position
 
 
--- I think I am going to want to further refactor this information out
--- NERDTree -------------------------------------------------------------------------
-vim.keymap.set("n", "<leader>t", "<cmd>NERDTreeToggle<cr>", {silent = true, noremap = true})
-
-
--- telescope -----------------------------------------------------------------------
-vim.keymap.set("n", "<leader>ff", require('telescope.builtin').find_files, {})
-vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers, {})
-vim.keymap.set("n", "<leader>fg", require('telescope.builtin').live_grep, {})
-vim.keymap.set("n", "<leader>fh", require('telescope.builtin').help_tags, {})
-
 --function setup()
 --    require('legendary').setup({
 --            -- Initial keymaps to bind
