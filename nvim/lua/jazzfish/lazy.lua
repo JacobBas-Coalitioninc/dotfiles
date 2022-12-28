@@ -62,6 +62,7 @@ require("lazy").setup({
     -- GIT INTEGRATIONS ------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
     {'tpope/vim-fugitive'}, --
+    {'tpope/vim-rhubarb'}, --
     {'airblade/vim-gitgutter'}, --
     {'sindrets/diffview.nvim'}, --
     -------------------------------------------------------------------------------------- 
@@ -286,6 +287,43 @@ require("lazy").setup({
         "folke/todo-comments.nvim",
         config = function() require("todo-comments").setup {} end
     }, --
+    {
+        'ThePrimeagen/harpoon',
+        dependencies = {'nvim-lua/plenary.nvim'},
+        config = function()
+            require("harpoon").setup({menu = {width = 85}})
+            local mark = require("harpoon.mark")
+            local ui = require("harpoon.ui")
+
+            -- access to the menu
+            vim.keymap.set("n", "<leader>ha", mark.add_file)
+            vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu)
+
+            -- quick access to loaded files
+            vim.keymap.set("n", "<leader>1", function()
+                ui.nav_file(1)
+            end)
+            vim.keymap.set("n", "<leader>2", function()
+                ui.nav_file(2)
+            end)
+            vim.keymap.set("n", "<leader>3", function()
+                ui.nav_file(3)
+            end)
+            vim.keymap.set("n", "<leader>4", function()
+                ui.nav_file(4)
+            end)
+        end
+    }, --
+    {
+        'mbbill/undotree',
+        config = function()
+            vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+        end
+    }, --
+    {
+        "folke/zen-mode.nvim",
+        config = function() require("zen-mode").setup {} end
+    }, --
     -------------------------------------------------------------------------------------- 
     -- THEMES ----------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -294,6 +332,7 @@ require("lazy").setup({
         "jesseleite/nvim-noirbuddy",
         dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
     }, --
+    {'rebelot/kanagawa.nvim'}, --
     {
         "folke/lsp-colors.nvim",
         config = function()
@@ -305,7 +344,6 @@ require("lazy").setup({
             })
         end
     }, --
-    {"folke/styler.nvim"}, --
     -------------------------------------------------------------------------------------- 
     -- LEGENDARY -------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 

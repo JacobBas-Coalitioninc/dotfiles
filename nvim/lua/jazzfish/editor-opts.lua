@@ -7,10 +7,11 @@ cmd 'filetype indent plugin on'
 
 vim.keymap.set('', '<Space>', '<Nop>', { noremap = true, silent = false })
 g.mapleader = " "
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
+-- g.loaded_netrw = 1
+-- g.loaded_netrwPlugin = 1
 opt.termguicolors = true
 
+opt.relativenumber = false
 opt.modifiable = true
 opt.belloff = 'all'
 opt.errorbells = false
@@ -34,6 +35,5 @@ opt.backup = false
 
 opt.colorcolumn = '95'
 opt.signcolumn = 'yes'
-cmd('highlight ColorColumn ctermbg=0 guibg=lightgrey')
 
 g.python3_host_prog = '/usr/bin/python3'
