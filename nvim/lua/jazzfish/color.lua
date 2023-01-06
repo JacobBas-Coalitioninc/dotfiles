@@ -21,7 +21,7 @@ function ColorMyPencils()
                 --
                 -- background ---------------------------------------
                 -- background = "#131513",
-                background = "#21201e",
+                background = "#21201e"
                 -- 
                 -- -- greyscale colors ---------------------------------
                 -- noir_0 = '#ffffff',
@@ -42,6 +42,9 @@ function ColorMyPencils()
                 undercurl = false
             }
         }
+
+    elseif (vim.g.colorscheme == "tokyonight") then
+        vim.cmd [[colorscheme tokyonight-moon]]
 
     elseif (vim.g.colorscheme == "rose-pine") then
         require('rose-pine').setup({
@@ -139,18 +142,26 @@ function ColorMyPencils()
         cmd.colorscheme "tokyonight-moon"
 
     elseif (vim.g.colorscheme == "gruvbox") then
-        cmd("set background=dark")
+        require("gruvbox").setup({
+            undercurl = true,
+            underline = true,
+            bold = true,
+            italic = true,
+            strikethrough = true,
+            invert_selection = false,
+            invert_signs = false,
+            invert_tabline = false,
+            invert_intend_guides = false,
+            inverse = true, -- invert background for search, diffs, statuslines and errors
+            contrast = "", -- can be "hard", "soft" or empty string
+            palette_overrides = {},
+            overrides = {},
+            dim_inactive = false,
+            transparent_mode = false,
+        })
         vim.cmd.colorscheme "gruvbox"
-
-        cmd("hi CursorLineNR guibg=None")
-        cmd("highlight Normal guibg=none")
-        cmd("highlight LineNr guifg=#ff8659")
-        cmd("highlight LineNr guifg=#aed75f")
-        cmd("highlight LineNr guifg=#5eacd3")
-        cmd("highlight qfFileName guifg=#aed75f")
-        cmd("hi TelescopeBorder guifg=#5eacd")
     end
 end
 
-vim.g.colorscheme = "kanagawa"
+vim.g.colorscheme = "gruvbox"
 ColorMyPencils()

@@ -10,18 +10,13 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- running the setup function to install all of the required plugins
 require("lazy").setup({
+    -------------------------------------------------------------------------------------- 
     -- GENERAL ---------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------- 
     {'nvim-lua/plenary.nvim'}, --
+    -------------------------------------------------------------------------------------- 
     -- FILES AND INFORMATION -------------------------------------------------------------
-    {
-        'scrooloose/NERDTree',
-        config = function()
-            vim.keymap.set("n", "<leader>t", "<cmd>NERDTreeToggle<cr>",
-                           {silent = true, noremap = true})
-            vim.cmd("let NERDTreeIgnore=[\'\\~$\', \'__pycache__\']")
-        end
-    }, --
-    {'Xuyuanp/nerdtree-git-plugin'}, --
+    -------------------------------------------------------------------------------------- 
     {
         'nvim-lualine/lualine.nvim',
         config = function()
@@ -65,6 +60,14 @@ require("lazy").setup({
     {'tpope/vim-rhubarb'}, --
     {'airblade/vim-gitgutter'}, --
     {'sindrets/diffview.nvim'}, --
+    {
+        'pwntester/octo.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim',
+            'kyazdani42/nvim-web-devicons'
+        },
+        config = function() require("octo").setup() end
+    }, --
     -------------------------------------------------------------------------------------- 
     -- LANGUAGE SUPPORT ------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -160,25 +163,18 @@ require("lazy").setup({
                 end
 
                 -- not really sure about the movements defined here so might want to update
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol,
-                               opts)
-                vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float,
-                               opts)
-                vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-                vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-                vim.keymap
-                    .set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-                vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-                vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-                vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
+                vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
+                vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
+                vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
             end)
 
             lsp.setup()
 
         end
     }, --
+    {'weilbith/nvim-code-action-menu'}, --
     -------------------------------------------------------------------------------------- 
     -- FUZZY FINDER ----------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -191,6 +187,10 @@ require("lazy").setup({
                            require('telescope.builtin').buffers, {})
             vim.keymap.set("n", "<leader>fg",
                            require('telescope.builtin').live_grep, {})
+            vim.keymap.set("n", "<leader>fd",
+                           require('telescope.builtin').diagnostics, {})
+            vim.keymap.set("n", "<leader>fr",
+                           require('telescope.builtin').lsp_references, {})
             vim.keymap.set("n", "<leader>fh",
                            require('telescope.builtin').help_tags, {})
         end
@@ -299,19 +299,11 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>ha", mark.add_file)
             vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu)
 
-            -- quick access to loaded files
-            vim.keymap.set("n", "<leader>1", function()
-                ui.nav_file(1)
-            end)
-            vim.keymap.set("n", "<leader>2", function()
-                ui.nav_file(2)
-            end)
-            vim.keymap.set("n", "<leader>3", function()
-                ui.nav_file(3)
-            end)
-            vim.keymap.set("n", "<leader>4", function()
-                ui.nav_file(4)
-            end)
+            -- quick access to loaded files; this maps the files to the numbers 1 through 9
+            for i = 1, 9 do
+                vim.keymap.set("n", "<leader>" .. tostring(i),
+                               function() ui.nav_file(i) end)
+            end
         end
     }, --
     {
@@ -333,19 +325,5 @@ require("lazy").setup({
         dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
     }, --
     {'rebelot/kanagawa.nvim'}, --
-    {
-        "folke/lsp-colors.nvim",
-        config = function()
-            require("lsp-colors").setup({
-                Error = "#db4b4b",
-                Warning = "#e0af68",
-                Information = "#0db9d7",
-                Hint = "#10B981"
-            })
-        end
-    }, --
-    -------------------------------------------------------------------------------------- 
-    -- LEGENDARY -------------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
-    {'mrjones2014/legendary.nvim'} --
+    {'folke/tokyonight.nvim'} --
 })
