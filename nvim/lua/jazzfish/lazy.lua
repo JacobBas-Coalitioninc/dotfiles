@@ -85,6 +85,11 @@ require("lazy").setup({
     }, --
     {'ray-x/guihua.lua'}, -- 
     {'rust-lang/rust.vim'}, --
+    -- {
+    --     url='unisonweb/unison',
+    --     branch='trunk',
+    --     -- tag='editor-support/vim',
+    -- }, -- for unison support
     -------------------------------------------------------------------------------------- 
     -- LSP -------------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -107,62 +112,30 @@ require("lazy").setup({
             'rafamadriz/friendly-snippets' --
         },
         config = function()
+            -- LSP Zero specific configuration
             local lsp = require('lsp-zero')
             lsp.preset('recommended')
-            lsp.ensure_installed({'gopls', 'pyright', 'rust_analyzer'})
+            lsp.ensure_installed({
+                'gopls', -- golang
+                'pyright', -- python
+                'rust_analyzer' -- rust
+            })
             lsp.nvim_workspace()
             lsp.setup()
 
-            local cmp = require('cmp')
-            cmp.setup {
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end
-                },
+            -- setting up the LSP diagnostic settings
+            vim.diagnostic.config({
+                virtual_text = true,
+                signs = true,
+                update_in_insert = true,
+                underline = true,
+                severity_sort = true,
+                float = true
+            })
 
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<CR>'] = cmp.mapping.confirm {
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = true
-                    },
-                    ['<Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        else
-                            fallback()
-                        end
-                    end, {'i', 's'}),
-                    ['<S-Tab>'] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, {'i', 's'})
-                })
-            }
-
-            lsp.set_preferences({sign_icons = {}})
-
-            vim.diagnostic.config({virtual_text = true})
-
+            -- key mappings that I like to use for LSP
             lsp.on_attach(function(client, bufnr)
                 local opts = {buffer = bufnr, remap = false}
-
-                if client.name == "eslint" then
-                    vim.cmd.LspStop('eslint')
-                    return
-                end
-
-                -- not really sure about the movements defined here so might want to update
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
                 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
@@ -170,11 +143,8 @@ require("lazy").setup({
                 vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
             end)
 
-            lsp.setup()
-
         end
     }, --
-    {'weilbith/nvim-code-action-menu'}, --
     -------------------------------------------------------------------------------------- 
     -- FUZZY FINDER ----------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -325,5 +295,8 @@ require("lazy").setup({
         dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
     }, --
     {'rebelot/kanagawa.nvim'}, --
-    {'folke/tokyonight.nvim'} --
+    {'folke/tokyonight.nvim'}, --
+    {'shaunsingh/nord.nvim'}, --
+    -- {'folke/lsp-colors.nvim'} -- better LSP colors for themes
+    {'bluz71/vim-moonfly-colors'}, --
 })

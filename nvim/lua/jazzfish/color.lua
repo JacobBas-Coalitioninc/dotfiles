@@ -140,6 +140,7 @@ function ColorMyPencils()
 
     elseif (vim.g.colorscheme == "tokyonight") then
         cmd.colorscheme "tokyonight-moon"
+        vim.cmd("highlight VertSplit guifg=#546f8f")
 
     elseif (vim.g.colorscheme == "gruvbox") then
         require("gruvbox").setup({
@@ -157,11 +158,40 @@ function ColorMyPencils()
             palette_overrides = {},
             overrides = {},
             dim_inactive = false,
-            transparent_mode = false,
+            transparent_mode = false
         })
         vim.cmd.colorscheme "gruvbox"
+
+    elseif (vim.g.colorscheme == "nord") then
+        -- Example config in lua
+        vim.g.nord_contrast = true
+        vim.g.nord_borders = true
+        vim.g.nord_disable_background = false
+        vim.g.nord_italic = true
+        vim.g.nord_uniform_diff_background = true
+        vim.g.nord_bold = true
+
+        -- Load the colorscheme
+        require('nord').set()
+
+        -- making sure lualine is configured
+        require('lualine').setup {options = {theme = 'nord'}}
+
+        -- setting the split border color to be a nice white value so it's easier to see
+        -- the separations
+        vim.cmd("highlight VertSplit guifg=#d5d8de")
+
+    elseif (vim.g.colorscheme == "moonfly") then
+        vim.cmd [[colorscheme moonfly]]
+
+        -- making sure lualine is configured
+        require('lualine').setup {options = {theme = 'moonfly'}}
+
+        -- moonfly configuration options
+        vim.g.moonflyWinSeparator = 2
+        vim.g.moonflyNormalFloat = true
     end
 end
 
-vim.g.colorscheme = "gruvbox"
+vim.g.colorscheme = "moonfly"
 ColorMyPencils()
