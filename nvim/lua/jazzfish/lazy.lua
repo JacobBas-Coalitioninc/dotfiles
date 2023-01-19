@@ -286,6 +286,7 @@ require("lazy").setup({
         "folke/zen-mode.nvim",
         config = function() require("zen-mode").setup {} end
     }, --
+    {'Exafunction/codeium.vim'}, --
     -------------------------------------------------------------------------------------- 
     -- THEMES ----------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
@@ -299,4 +300,5 @@ require("lazy").setup({
     {'shaunsingh/nord.nvim'}, --
     -- {'folke/lsp-colors.nvim'} -- better LSP colors for themes
     {'bluz71/vim-moonfly-colors'}, --
+    {'projekt0n/github-nvim-theme'}, --
 })

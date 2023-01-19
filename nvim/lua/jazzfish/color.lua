@@ -190,8 +190,14 @@ function ColorMyPencils()
         -- moonfly configuration options
         vim.g.moonflyWinSeparator = 2
         vim.g.moonflyNormalFloat = true
+
+    elseif (vim.g.colorscheme == "github") then
+        require("github-theme").setup({theme_style = "dimmed"})
+
+        -- making sure lualine is configured
+        require('lualine').setup {options = {theme = "auto"}}
     end
 end
 
-vim.g.colorscheme = "moonfly"
+vim.g.colorscheme = "gruvbox"
 ColorMyPencils()
