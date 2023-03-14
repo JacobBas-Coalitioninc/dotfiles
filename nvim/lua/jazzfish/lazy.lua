@@ -85,31 +85,27 @@ require("lazy").setup({
     }, --
     {'ray-x/guihua.lua'}, -- 
     {'rust-lang/rust.vim'}, --
-    -- {
-    --     url='unisonweb/unison',
-    --     branch='trunk',
-    --     -- tag='editor-support/vim',
-    -- }, -- for unison support
     -------------------------------------------------------------------------------------- 
     -- LSP -------------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
     {
         'VonHeikemen/lsp-zero.nvim',
+        -- branch = 'v1.x',
         dependencies = {
             -- LSP Support
-            'neovim/nvim-lspconfig', -- 
-            'williamboman/mason.nvim', --
-            'williamboman/mason-lspconfig.nvim', --
+            {'neovim/nvim-lspconfig'}, -- Required
+            {'williamboman/mason.nvim'}, -- Optional
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
             -- Autocompletion
-            'hrsh7th/nvim-cmp', -- 
-            'hrsh7th/cmp-buffer', -- 
-            'hrsh7th/cmp-path', --
-            'saadparwaiz1/cmp_luasnip', -- 
-            'hrsh7th/cmp-nvim-lsp', --
-            'hrsh7th/cmp-nvim-lua', --
+            {'hrsh7th/nvim-cmp'}, -- Required
+            {'hrsh7th/cmp-nvim-lsp'}, -- Required
+            {'hrsh7th/cmp-buffer'}, -- Optional
+            {'hrsh7th/cmp-path'}, -- Optional
+            {'saadparwaiz1/cmp_luasnip'}, -- Optional
+            {'hrsh7th/cmp-nvim-lua'}, -- Optional
             -- Snippets
-            'L3MON4D3/LuaSnip', -- 
-            'rafamadriz/friendly-snippets' --
+            {'L3MON4D3/LuaSnip'}, -- Required
+            {'rafamadriz/friendly-snippets'} -- Optional
         },
         config = function()
             -- LSP Zero specific configuration
@@ -173,12 +169,15 @@ require("lazy").setup({
     -------------------------------------------------------------------------------------- 
     {
         'nvim-treesitter/nvim-treesitter',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-context' -- 
+        },
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
                     "go", "javascript", "lua", "python", "rust", "vim"
                 },
-                highlight = {enable = true, disable = {"vim"}}
+                highlight = {enable = true, disable = {"vim", "csv"}}
             }
 
         end
@@ -286,19 +285,28 @@ require("lazy").setup({
         "folke/zen-mode.nvim",
         config = function() require("zen-mode").setup {} end
     }, --
-    {'Exafunction/codeium.vim'}, --
+    {
+        'Tummetott/reticle.nvim',
+        config = function()
+            require('reticle').setup {
+                -- add options here if you want to overwrite defaults
+            }
+            vim.opt.cursorline = true
+            vim.opt.cursorcolumn = true
+        end
+    }, -- {'Exafunction/codeium.vim'}, --
     -------------------------------------------------------------------------------------- 
     -- THEMES ----------------------------------------------------------------------------
     -------------------------------------------------------------------------------------- 
-    {'ellisonleao/gruvbox.nvim'}, --
-    {
-        "jesseleite/nvim-noirbuddy",
-        dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
-    }, --
-    {'rebelot/kanagawa.nvim'}, --
-    {'folke/tokyonight.nvim'}, --
-    {'shaunsingh/nord.nvim'}, --
+    {'ellisonleao/gruvbox.nvim'} --
+    -- {
+    --     "jesseleite/nvim-noirbuddy",
+    --     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
+    -- }, --
+    -- {'rebelot/kanagawa.nvim'}, --
+    -- {'folke/tokyonight.nvim'}, --
+    -- {'shaunsingh/nord.nvim'}, --
     -- {'folke/lsp-colors.nvim'} -- better LSP colors for themes
-    {'bluz71/vim-moonfly-colors'}, --
-    {'projekt0n/github-nvim-theme'}, --
+    -- {'bluz71/vim-moonfly-colors'}, --
+    -- {'projekt0n/github-nvim-theme'}, --
 })

@@ -196,6 +196,12 @@ function ColorMyPencils()
 
         -- making sure lualine is configured
         require('lualine').setup {options = {theme = "auto"}}
+
+    elseif (vim.g.colorscheme == "moonbow") then
+        require("moonbow")
+
+        -- making sure lualine is configured
+        require('lualine').setup {options = {theme = "moonbow"}}
     end
 end
 
