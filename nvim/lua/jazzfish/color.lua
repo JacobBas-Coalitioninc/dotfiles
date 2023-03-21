@@ -147,7 +147,7 @@ function ColorMyPencils()
             undercurl = true,
             underline = true,
             bold = true,
-            italic = true,
+            italic = {strings = true, operators = true, comments = true},
             strikethrough = true,
             invert_selection = false,
             invert_signs = false,

@@ -1,22 +1,22 @@
--- checking to make sure that we have lazy.nvim installed into the correct place
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-        "git", "clone", "--filter=blob:none", "--single-branch",
-        "https://github.com/folke/lazy.nvim.git", lazypath
+        "git", "clone", "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git", "--branch=stable", -- latest stable release
+        lazypath
     })
 end
-vim.opt.runtimepath:prepend(lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 -- running the setup function to install all of the required plugins
 require("lazy").setup({
-    -------------------------------------------------------------------------------------- 
-    -- GENERAL ---------------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- GENERAL ---------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {'nvim-lua/plenary.nvim'}, --
-    -------------------------------------------------------------------------------------- 
-    -- FILES AND INFORMATION -------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- FILES AND INFORMATION -------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {
         'nvim-lualine/lualine.nvim',
         config = function()
@@ -53,9 +53,9 @@ require("lazy").setup({
             vim.cmd('highlight WinSeparator guibg=None')
         end
     }, -- 
-    -------------------------------------------------------------------------------------- 
-    -- GIT INTEGRATIONS ------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- GIT INTEGRATIONS ------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {'tpope/vim-fugitive'}, --
     {'tpope/vim-rhubarb'}, --
     {'airblade/vim-gitgutter'}, --
@@ -68,15 +68,14 @@ require("lazy").setup({
         },
         config = function() require("octo").setup() end
     }, --
-    -------------------------------------------------------------------------------------- 
-    -- LANGUAGE SUPPORT ------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- LANGUAGE SUPPORT ------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {'sheerun/vim-polyglot'}, -- [x] syntax support
     {
         'ray-x/go.nvim',
         config = function()
             require('go').setup()
-
             -- Run gofmt + goimport on save
             vim.api.nvim_exec(
                 [[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]],
@@ -85,10 +84,23 @@ require("lazy").setup({
     }, --
     {'ray-x/guihua.lua'}, -- 
     {'rust-lang/rust.vim'}, --
-    -------------------------------------------------------------------------------------- 
-    -- LSP -------------------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- LSP -------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {
+        'L3MON4D3/LuaSnip',
+        dependencies = {
+            -- NOTE: something really strange happens with the order of loading LuaSnip when
+            -- you do not clearly define that it is dependent on the LSP packages which is 
+            -- why LusSnip is defined out here with it's required dependencies or else 
+            -- everything will break randomly.
+            -- This seems to not only affect LuaSnip either, but also treesitter since 
+            -- by this breaking, other things seem to break as well.
+            {'neovim/nvim-lspconfig'}, {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'}, {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'}, {'saadparwaiz1/cmp_luasnip'}
+        }
+    }, {
         'VonHeikemen/lsp-zero.nvim',
         -- branch = 'v1.x',
         dependencies = {
@@ -101,7 +113,6 @@ require("lazy").setup({
             {'hrsh7th/cmp-nvim-lsp'}, -- Required
             {'hrsh7th/cmp-buffer'}, -- Optional
             {'hrsh7th/cmp-path'}, -- Optional
-            {'saadparwaiz1/cmp_luasnip'}, -- Optional
             {'hrsh7th/cmp-nvim-lua'}, -- Optional
             -- Snippets
             {'L3MON4D3/LuaSnip'}, -- Required
@@ -118,7 +129,6 @@ require("lazy").setup({
             })
             lsp.nvim_workspace()
             lsp.setup()
-
             -- setting up the LSP diagnostic settings
             vim.diagnostic.config({
                 virtual_text = true,
@@ -128,7 +138,6 @@ require("lazy").setup({
                 severity_sort = true,
                 float = true
             })
-
             -- key mappings that I like to use for LSP
             lsp.on_attach(function(client, bufnr)
                 local opts = {buffer = bufnr, remap = false}
@@ -138,14 +147,14 @@ require("lazy").setup({
                 vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
                 vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
             end)
-
         end
     }, --
-    -------------------------------------------------------------------------------------- 
-    -- FUZZY FINDER ----------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- FUZZY FINDER ----------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {
         'nvim-telescope/telescope.nvim',
+        dependencies = {'nvim-lua/plenary.nvim'},
         config = function()
             vim.keymap.set("n", "<leader>ff",
                            require('telescope.builtin').find_files, {})
@@ -164,9 +173,9 @@ require("lazy").setup({
     {'nvim-telescope/telescope-fzy-native.nvim'}, --
     {'sharkdp/fd'}, --
     {'nvim-lua/popup.nvim'}, --
-    -------------------------------------------------------------------------------------- 
-    -- TREE-SITTER -----------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- TREE-SITTER -----------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
@@ -177,16 +186,26 @@ require("lazy").setup({
                 ensure_installed = {
                     "go", "javascript", "lua", "python", "rust", "vim"
                 },
-                highlight = {enable = true, disable = {"vim", "csv"}}
+                highlight = {
+                    enable = true,
+                    disable = function(lang, buf)
+                        local max_filesize = 100 * 1024 -- 100 KB
+                        local ok, stats =
+                            pcall(vim.loop.fs_stat,
+                                  vim.api.nvim_buf_get_name(buf))
+                        if ok and stats and stats.size > max_filesize then
+                            return true
+                        end
+                    end
+                }
             }
 
         end
     }, --
-    {'nvim-treesitter/playground'}, --
-    {'nvim-treesitter/nvim-treesitter-context'}, --
-    -------------------------------------------------------------------------------------- 
-    -- DIAGNOSTICS -----------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    -- {'nvim-treesitter/playground'}, --
+    ---------------------------------------------------------------------------------------- 
+    ---- DIAGNOSTICS -----------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {
         url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
         config = function()
@@ -196,14 +215,12 @@ require("lazy").setup({
                 update_in_insert = true
             })
             require("lsp_lines").toggle()
-
             local function toggle_lsp_lines()
                 vim.diagnostic.config({
                     virtual_text = not vim.diagnostic.config()["virtual_text"]
                 })
                 require("lsp_lines").toggle()
             end
-
             vim.keymap.set("", "<Leader>d", toggle_lsp_lines,
                            {desc = "Toggle lsp_lines"})
         end
@@ -212,9 +229,9 @@ require("lazy").setup({
         'petertriho/nvim-scrollbar',
         config = function() require("scrollbar").setup() end
     }, --
-    -------------------------------------------------------------------------------------- 
-    -- NICE TO HAVES ---------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- NICE TO HAVES ---------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {'tpope/vim-commentary'}, --
     {'tpope/vim-surround'}, --
     {'sbdchd/neoformat'}, --
@@ -248,7 +265,7 @@ require("lazy").setup({
         'danymat/neogen',
         config = function()
             require('neogen').setup {}
-            vim.keymap.set("", "<Leader><leader>d", require('neogen').generate,
+            vim.keymap.set("", "<leader><leader>d", require('neogen').generate,
                            {desc = "add in docstring to a function"})
         end
     }, --
@@ -263,11 +280,9 @@ require("lazy").setup({
             require("harpoon").setup({menu = {width = 85}})
             local mark = require("harpoon.mark")
             local ui = require("harpoon.ui")
-
             -- access to the menu
             vim.keymap.set("n", "<leader>ha", mark.add_file)
             vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu)
-
             -- quick access to loaded files; this maps the files to the numbers 1 through 9
             for i = 1, 9 do
                 vim.keymap.set("n", "<leader>" .. tostring(i),
@@ -295,18 +310,18 @@ require("lazy").setup({
             vim.opt.cursorcolumn = true
         end
     }, -- {'Exafunction/codeium.vim'}, --
-    -------------------------------------------------------------------------------------- 
-    -- THEMES ----------------------------------------------------------------------------
-    -------------------------------------------------------------------------------------- 
+    ---------------------------------------------------------------------------------------- 
+    ---- THEMES ----------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
     {'ellisonleao/gruvbox.nvim'} --
-    -- {
-    --     "jesseleite/nvim-noirbuddy",
-    --     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
-    -- }, --
-    -- {'rebelot/kanagawa.nvim'}, --
-    -- {'folke/tokyonight.nvim'}, --
-    -- {'shaunsingh/nord.nvim'}, --
-    -- {'folke/lsp-colors.nvim'} -- better LSP colors for themes
-    -- {'bluz71/vim-moonfly-colors'}, --
-    -- {'projekt0n/github-nvim-theme'}, --
+    ---- {
+    ----     "jesseleite/nvim-noirbuddy",
+    ----     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
+    ---- }, --
+    ---- {'rebelot/kanagawa.nvim'}, --
+    ---- {'folke/tokyonight.nvim'}, --
+    ---- {'shaunsingh/nord.nvim'}, --
+    ---- {'folke/lsp-colors.nvim'} -- better LSP colors for themes
+    ---- {'bluz71/vim-moonfly-colors'}, --
+    ---- {'projekt0n/github-nvim-theme'}, --
 })
