@@ -313,7 +313,8 @@ require("lazy").setup({
     ---------------------------------------------------------------------------------------- 
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
-    {'ellisonleao/gruvbox.nvim'} --
+    {'ellisonleao/gruvbox.nvim'}, --
+    {'navarasu/onedark.nvim'}, --
     ---- {
     ----     "jesseleite/nvim-noirbuddy",
     ----     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
