@@ -53,6 +53,36 @@ require("lazy").setup({
             vim.cmd('highlight WinSeparator guibg=None')
         end
     }, -- 
+    -- {
+    --     'sidebar-nvim/sidebar.nvim',
+    --     config = function()
+    --         local sidebar = require("sidebar-nvim")
+    --         sidebar.setup({
+    --             disable_default_keybindings = 0,
+    --             bindings = nil,
+    --             open = true,
+    --             side = "left",
+    --             initial_width = 35,
+    --             hide_statusline = false,
+    --             update_interval = 1000,
+    --             sections = {
+    --                 "datetime", "git", "diagnostics", "containers", "todos"
+    --             },
+    --             section_separator = {"", "-----", ""},
+    --             section_title_separator = {""},
+    --             containers = {
+    --                 attach_shell = "/bin/sh",
+    --                 show_all = true,
+    --                 interval = 5000
+    --             },
+    --             datetime = {
+    --                 format = "%a %b %d, %H:%M",
+    --                 clocks = {{name = "local"}}
+    --             },
+    --             todos = {ignored_paths = {"~"}}
+    --         })
+    --     end
+    -- }, --
     ---------------------------------------------------------------------------------------- 
     ---- GIT INTEGRATIONS ------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -314,7 +344,7 @@ require("lazy").setup({
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
     {'ellisonleao/gruvbox.nvim'}, --
-    {'navarasu/onedark.nvim'}, --
+    {'navarasu/onedark.nvim'} --
     ---- {
     ----     "jesseleite/nvim-noirbuddy",
     ----     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}
