@@ -340,19 +340,20 @@ require("lazy").setup({
             vim.opt.cursorcolumn = true
         end
     }, -- 
-    {
-        'github/copilot.vim',
-        config = function()
-            vim.g.copilot_no_tab_map = true
-            vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")',
-                                    {silent = true, expr = true})
-        end
-    }, --
+    -- {
+    --     'github/copilot.vim',
+    --     config = function()
+    --         vim.g.copilot_no_tab_map = true
+    --         vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")',
+    --                                 {silent = true, expr = true})
+    --     end
+    -- }, --
     ---------------------------------------------------------------------------------------- 
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
     {'ellisonleao/gruvbox.nvim'}, --
-    {'navarasu/onedark.nvim'} --
+    {'rebelot/kanagawa.nvim'} --
+    -- {'navarasu/onedark.nvim'} --
     ---- {
     ----     "jesseleite/nvim-noirbuddy",
     ----     dependencies = {"tjdevries/colorbuddy.nvim", branch = "dev"}

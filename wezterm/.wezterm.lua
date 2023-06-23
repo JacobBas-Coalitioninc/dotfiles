@@ -4,7 +4,8 @@ local act = wezterm.action
 
 -- This table will hold the configuration.
 local config = {
-    color_scheme = 'Gruvbox dark, medium (base16)',
+    -- color_scheme = 'Gruvbox dark, medium (base16)',
+    color_scheme = 'Andromeda',
     font_size = 9.5,
     keys = {
         -- general stuff here

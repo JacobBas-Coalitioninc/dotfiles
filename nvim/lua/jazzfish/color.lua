@@ -134,9 +134,7 @@ function ColorMyPencils()
 
     elseif (vim.g.colorscheme == "kanagawa") then
         cmd.colorscheme "kanagawa"
-        cmd("hi TelescopeBorder guifg=#5eacd")
-        cmd("hi VertSplit guifg=#5eacd")
-        cmd("hi CursorLineNR guibg=guifg=#ff8659")
+        vim.cmd [[highlight WinSeparator guifg=#c7c2a9]] -- this is the correct way to set window split
 
     elseif (vim.g.colorscheme == "tokyonight") then
         cmd.colorscheme "tokyonight-moon"
@@ -203,6 +201,10 @@ function ColorMyPencils()
         -- making sure lualine is configured
         require('lualine').setup {options = {theme = "moonbow"}}
 
+    elseif (vim.g.colorscheme == "rasmus") then
+        require("rasmus") 
+        vim.cmd [[colorscheme rasmus]]
+
     elseif (vim.g.colorscheme == "onedark") then
         require('onedark').setup {
             -- Main options --
@@ -252,6 +254,6 @@ function ColorMyPencils()
     end
 end
 
--- vim.g.colorscheme = "onedark"
-vim.g.colorscheme = "gruvbox"
+-- vim.g.colorscheme = "gruvbox"
+vim.g.colorscheme = "kanagawa"
 ColorMyPencils()
