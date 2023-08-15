@@ -48,8 +48,10 @@ function ColorMyPencils()
 
     elseif (vim.g.colorscheme == "rose-pine") then
         require('rose-pine').setup({
-            --- @usage 'main' | 'moon'
-            dark_variant = 'main',
+            --- @usage 'auto'|'main'|'moon'|'dawn'
+            variant = 'auto',
+            --- @usage 'main'|'moon'|'dawn'
+            dark_variant = 'moon',
             bold_vert_split = false,
             dim_nc_background = false,
             disable_background = false,
@@ -254,6 +256,7 @@ function ColorMyPencils()
     end
 end
 
--- vim.g.colorscheme = "gruvbox"
-vim.g.colorscheme = "kanagawa"
+vim.g.colorscheme = "gruvbox"
+-- vim.g.colorscheme = "kanagawa"
+-- vim.g.colorscheme = "rose-pine"
 ColorMyPencils()

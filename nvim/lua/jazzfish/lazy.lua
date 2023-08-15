@@ -94,7 +94,7 @@ require("lazy").setup({
         'pwntester/octo.nvim',
         dependencies = {
             'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim',
-            'kyazdani42/nvim-web-devicons'
+            'nvim-tree/nvim-web-devicons'
         },
         config = function() require("octo").setup() end
     }, --
@@ -155,7 +155,7 @@ require("lazy").setup({
             lsp.ensure_installed({
                 'gopls', -- golang
                 'pyright', -- python
-                'rust_analyzer' -- rust
+                'rust_analyzer', -- rust
             })
             lsp.nvim_workspace()
             lsp.setup()
@@ -340,7 +340,71 @@ require("lazy").setup({
             vim.opt.cursorcolumn = true
         end
     }, -- 
+    {
+        "HampusHauffman/block.nvim",
+        config = function() require("block").setup({}) end
+    }, --
+    {
+        "stevearc/oil.nvim",
+        dependencies = {"nvim-tree/nvim-web-devicons"},
+        config = function()
+            require("oil").setup({
+                view_options = {
+                    -- Show files and directories that start with "."
+                    show_hidden = true,
+                    -- This function defines what is considered a "hidden" file
+                    is_hidden_file = function(name, bufnr)
+                        return false
+                    end,
+                    -- This function defines what will never be shown, even when `show_hidden` is set
+                    is_always_hidden = function(name, bufnr)
+                        local patterns = {"pycache", "DS_Store"}
+                        for _, pattern in ipairs(patterns) do
+                            if string.match(name, pattern) then
+                                return true
+                            end
+                        end
+                        return false
+                    end
+                }
+            })
+            -- this was originally mapped to netrw  but since I now use oil it is unneeded
+            vim.keymap.set("n", "<leader>t", require("oil").open,
+                           {silent = true, noremap = true})
+        end
+    }, --
     -- {
+    --     'kevinhwang91/nvim-ufo',
+    --     dependencies = {'kevinhwang91/promise-async'},
+    --     config = function()
+    --         vim.o.foldcolumn = '1' -- '0' is not bad
+    --         vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+    --         vim.o.foldlevelstart = 99
+    --         vim.o.foldenable = true
+    --         -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+    --         vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+    --         vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+    --         vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+    --         vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+    --         -- Option 2: nvim lsp as LSP client
+    --         -- Tell the server the capability of foldingRange,
+    --         -- Neovim hasn't added foldingRange to default capabilities, users must add it manually
+    --         local capabilities = vim.lsp.protocol.make_client_capabilities()
+    --         capabilities.textDocument.foldingRange = {
+    --             dynamicRegistration = false,
+    --             lineFoldingOnly = true
+    --         }
+    --         local language_servers = require("lspconfig").util
+    --                                      .available_servers() -- or list servers manually like {'gopls', 'clangd'}
+    --         for _, ls in ipairs(language_servers) do
+    --             require('lspconfig')[ls].setup({
+    --                 capabilities = capabilities
+    --                 -- you can add other fields for setting up lsp server in this table
+    --             })
+    --         end
+    --         require('ufo').setup()
+    --     end
+    -- }, --
     --     'github/copilot.vim',
     --     config = function()
     --         vim.g.copilot_no_tab_map = true
@@ -352,7 +416,8 @@ require("lazy").setup({
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
     {'ellisonleao/gruvbox.nvim'}, --
-    {'rebelot/kanagawa.nvim'} --
+    {'rebelot/kanagawa.nvim'}, --
+    {'rose-pine/neovim', name = 'rose-pine'} --
     -- {'navarasu/onedark.nvim'} --
     ---- {
     ----     "jesseleite/nvim-noirbuddy",
