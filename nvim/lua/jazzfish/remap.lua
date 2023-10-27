@@ -20,3 +20,8 @@ vim.keymap.set("n", "<leader>vd", "<cmd>terminal vd % startinsert <cr>") -- open
 vim.keymap.set("n", "<leader>no", "<cmd>e ~/.notes/main.md<cr>", {}) -- opens up a notes file within my notes directory
 vim.keymap.set("n", "<leader>nt", "<cmd>e ~/.notes/todo.md<cr>", {}) -- opens up a notes file within my notes directory
 vim.keymap.set("n", "<leader>ns", "<cmd>e ~/.notes/scratch.md<cr>", {}) -- opens up a notes file within my notes directory
+
+-- ensures that GBrowse is working from vim.rhubarb; we place this here within the remap
+-- file since it seems that there are some strange interactions that are happening within
+-- the lazy loading config that are causing this to break
+vim.cmd[[command! -nargs=1 Browse silent execute '!open' shellescape(<q-args>,1)]]

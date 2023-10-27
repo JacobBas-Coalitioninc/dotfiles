@@ -53,42 +53,20 @@ require("lazy").setup({
             vim.cmd('highlight WinSeparator guibg=None')
         end
     }, -- 
-    -- {
-    --     'sidebar-nvim/sidebar.nvim',
-    --     config = function()
-    --         local sidebar = require("sidebar-nvim")
-    --         sidebar.setup({
-    --             disable_default_keybindings = 0,
-    --             bindings = nil,
-    --             open = true,
-    --             side = "left",
-    --             initial_width = 35,
-    --             hide_statusline = false,
-    --             update_interval = 1000,
-    --             sections = {
-    --                 "datetime", "git", "diagnostics", "containers", "todos"
-    --             },
-    --             section_separator = {"", "-----", ""},
-    --             section_title_separator = {""},
-    --             containers = {
-    --                 attach_shell = "/bin/sh",
-    --                 show_all = true,
-    --                 interval = 5000
-    --             },
-    --             datetime = {
-    --                 format = "%a %b %d, %H:%M",
-    --                 clocks = {{name = "local"}}
-    --             },
-    --             todos = {ignored_paths = {"~"}}
-    --         })
-    --     end
-    -- }, --
     {"nvim-pack/nvim-spectre"}, --
     ---------------------------------------------------------------------------------------- 
     ---- GIT INTEGRATIONS ------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
     {'tpope/vim-fugitive'}, --
-    {'tpope/vim-rhubarb'}, --
+    {
+        'tpope/vim-rhubarb',
+        -- config = function()
+        --     -- ensures that :GBrowse is working
+        --     vim.api.nvim_create_user_command('Browse', function(opts)
+        --         vim.fn.system {'xdg-open', opts.fargs[1]}
+        --     end, {nargs = 1})
+        -- end
+    }, --
     {'airblade/vim-gitgutter'}, --
     {
         'sindrets/diffview.nvim',
@@ -253,6 +231,27 @@ require("lazy").setup({
                 vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
                 vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
             end)
+
+            local cmp = require('cmp')
+            local cmp_action = require('lsp-zero').cmp_action()
+
+            cmp.setup({
+                mapping = cmp.mapping.preset.insert({
+                    -- `Enter` key to confirm completion
+                    ['<CR>'] = cmp.mapping.confirm({select = false}),
+
+                    -- Ctrl+Space to trigger completion menu
+                    ['<C-Space>'] = cmp.mapping.complete(),
+
+                    -- Navigate between snippet placeholder
+                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+
+                    -- Scroll up and down in the completion documentation
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4)
+                })
+            })
         end
     }, --
     ---------------------------------------------------------------------------------------- 
@@ -412,8 +411,7 @@ require("lazy").setup({
             require('reticle').setup {
                 -- add options here if you want to overwrite defaults
             }
-            vim.opt.cursorline = true
-            vim.opt.cursorcolumn = true
+            require('reticle').enable_cursorcross()
         end
     }, -- 
     {
@@ -426,6 +424,7 @@ require("lazy").setup({
         config = function()
             require("oil").setup({
                 view_options = {
+                    default_file_explorer = true,
                     -- Show files and directories that start with "."
                     show_hidden = true,
                     -- This function defines what is considered a "hidden" file
@@ -448,6 +447,11 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>t", require("oil").open,
                            {silent = true, noremap = true})
         end
+    }, --
+    {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}}, --
+    {
+        "theHamsta/nvim-dap-virtual-text",
+        dependencies = {"mfussenegger/nvim-dap"}
     }, --
     -- {
     --     'github/copilot.vim',

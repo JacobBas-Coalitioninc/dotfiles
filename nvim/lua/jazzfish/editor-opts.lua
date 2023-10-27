@@ -1,14 +1,13 @@
-local cmd = vim.cmd -- to exectue vim commands
-local g = vim.g     -- a table to access global variables
+local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
 
-cmd 'syntax on'
-cmd 'filetype indent plugin on'
+vim.cmd [[syntax on]]
+vim.cmd [[filetype indent plugin on]]
 
-vim.keymap.set('', '<Space>', '<Nop>', { noremap = true, silent = false })
+vim.keymap.set('', '<Space>', '<Nop>', {noremap = true, silent = false})
 g.mapleader = " "
--- g.loaded_netrw = 1
--- g.loaded_netrwPlugin = 1
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 opt.termguicolors = true
 
 opt.relativenumber = false

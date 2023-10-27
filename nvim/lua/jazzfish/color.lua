@@ -305,8 +305,8 @@ function ColorMyPencils()
     end
 end
 
--- vim.g.colorscheme = "gruvbox"
-vim.g.colorscheme = "nightfox"
+vim.g.colorscheme = "gruvbox"
+-- vim.g.colorscheme = "nightfox"
 -- vim.g.colorscheme = "kanagawa"
 -- vim.g.colorscheme = "rose-pine"
 ColorMyPencils()
