@@ -21,6 +21,14 @@ vim.keymap.set("n", "<leader>no", "<cmd>e ~/.notes/main.md<cr>", {}) -- opens up
 vim.keymap.set("n", "<leader>nt", "<cmd>e ~/.notes/todo.md<cr>", {}) -- opens up a notes file within my notes directory
 vim.keymap.set("n", "<leader>ns", "<cmd>e ~/.notes/scratch.md<cr>", {}) -- opens up a notes file within my notes directory
 
+
+-- nvim-scissors keymaps
+vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
+vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
+--
+-- pasting the date to the current cursor position
+-- vim.keymap.set("n", "<leader>q", "<cmd>pu=strftime('%c')<cr>")
+
 -- ensures that GBrowse is working from vim.rhubarb; we place this here within the remap
 -- file since it seems that there are some strange interactions that are happening within
 -- the lazy loading config that are causing this to break

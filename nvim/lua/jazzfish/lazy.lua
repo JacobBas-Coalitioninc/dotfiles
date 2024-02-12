@@ -59,7 +59,7 @@ require("lazy").setup({
     ---------------------------------------------------------------------------------------- 
     {'tpope/vim-fugitive'}, --
     {
-        'tpope/vim-rhubarb',
+        'tpope/vim-rhubarb'
         -- config = function()
         --     -- ensures that :GBrowse is working
         --     vim.api.nvim_create_user_command('Browse', function(opts)
@@ -68,82 +68,6 @@ require("lazy").setup({
         -- end
     }, --
     {'airblade/vim-gitgutter'}, --
-    {
-        'sindrets/diffview.nvim',
-        config = function()
-            require("diffview").setup({
-                diff_binaries = false, -- Show diffs for binaries
-                enhanced_diff_hl = false, -- See ':h diffview-config-enhanced_diff_hl'
-                git_cmd = {"git"}, -- The git executable followed by default args.
-                hg_cmd = {"hg"}, -- The hg executable followed by default args.
-                use_icons = true, -- Requires nvim-web-devicons
-                show_help_hints = true, -- Show hints for how to open the help panel
-                watch_index = true, -- Update views and index buffers when the git index changes.
-                signs = {fold_closed = "", fold_open = "", done = "✓"},
-                view = {
-                    -- Configure the layout and behavior of different types of views.
-                    -- Available layouts:
-                    --  'diff1_plain'
-                    --    |'diff2_horizontal'
-                    --    |'diff2_vertical'
-                    --    |'diff3_horizontal'
-                    --    |'diff3_vertical'
-                    --    |'diff3_mixed'
-                    --    |'diff4_mixed'
-                    -- For more info, see ':h diffview-config-view.x.layout'.
-                    default = {
-                        -- Config for changed files, and staged files in diff views.
-                        layout = "diff2_horizontal",
-                        winbar_info = false -- See ':h diffview-config-view.x.winbar_info'
-                    },
-                    merge_tool = {
-                        -- Config for conflicted files in diff views during a merge or rebase.
-                        layout = "diff3_horizontal",
-                        disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
-                        winbar_info = true -- See ':h diffview-config-view.x.winbar_info'
-                    },
-                    file_history = {
-                        -- Config for changed files in file history views.
-                        layout = "diff2_horizontal",
-                        winbar_info = false -- See ':h diffview-config-view.x.winbar_info'
-                    }
-                },
-                file_panel = {
-                    listing_style = "tree", -- One of 'list' or 'tree'
-                    win_config = { -- See ':h diffview-config-win_config'
-                        position = "bottom",
-                        width = 14,
-                        win_opts = {}
-                    }
-                },
-                file_history_panel = {
-                    log_options = { -- See ':h diffview-config-log_options'
-                        git = {
-                            single_file = {diff_merges = "combined"},
-                            multi_file = {diff_merges = "first-parent"}
-                        },
-                        hg = {single_file = {}, multi_file = {}}
-                    },
-                    win_config = { -- See ':h diffview-config-win_config'
-                        position = "bottom",
-                        height = 16,
-                        win_opts = {}
-                    }
-                },
-                commit_log_panel = {
-                    win_config = { -- See ':h diffview-config-win_config'
-                        win_opts = {}
-                    }
-                },
-                default_args = { -- Default args prepended to the arg-list for the listed commands
-                    DiffviewOpen = {},
-                    DiffviewFileHistory = {}
-                },
-                hooks = {} -- See ':h diffview-config-hooks'
-            })
-
-        end
-    }, --
     {
         'pwntester/octo.nvim',
         dependencies = {
@@ -171,89 +95,163 @@ require("lazy").setup({
     ---------------------------------------------------------------------------------------- 
     ---- LSP -------------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
+    {"L3MON4D3/LuaSnip", dependencies = {"rafamadriz/friendly-snippets"}}, -- 
     {
-        'L3MON4D3/LuaSnip',
+        "neovim/nvim-lspconfig",
         dependencies = {
-            -- NOTE: something really strange happens with the order of loading LuaSnip when
-            -- you do not clearly define that it is dependent on the LSP packages which is 
-            -- why LusSnip is defined out here with it's required dependencies or else 
-            -- everything will break randomly.
-            -- This seems to not only affect LuaSnip either, but also treesitter since 
-            -- by this breaking, other things seem to break as well.
-            {'neovim/nvim-lspconfig'}, {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'}, {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-nvim-lsp'}, {'saadparwaiz1/cmp_luasnip'}
-        }
-    }, {
-        'VonHeikemen/lsp-zero.nvim',
-        -- branch = 'v1.x',
-        dependencies = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'}, -- Required
-            {'williamboman/mason.nvim'}, -- Optional
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'}, -- Required
-            {'hrsh7th/cmp-nvim-lsp'}, -- Required
-            {'hrsh7th/cmp-buffer'}, -- Optional
-            {'hrsh7th/cmp-path'}, -- Optional
-            {'hrsh7th/cmp-nvim-lua'}, -- Optional
-            -- Snippets
-            {'L3MON4D3/LuaSnip'}, -- Required
-            {'rafamadriz/friendly-snippets'} -- Optional
+            -- required for easy installation of LSP servers and other tools...
+            {"williamboman/mason.nvim"}, {"williamboman/mason-lspconfig.nvim"}, --
+            -- required for getting auto complete working...
+            {"hrsh7th/nvim-cmp"}, {"hrsh7th/cmp-nvim-lsp"}, --
+            -- required for getting snippets to work...
+            {"L3MON4D3/LuaSnip"}, {'saadparwaiz1/cmp_luasnip'} --
         },
         config = function()
-            -- LSP Zero specific configuration
-            local lsp = require('lsp-zero')
-            lsp.preset('recommended')
-            lsp.ensure_installed({
-                'gopls', -- golang
-                'pyright', -- python
-                'rust_analyzer' -- rust
-            })
-            lsp.nvim_workspace()
-            lsp.setup()
-            -- setting up the LSP diagnostic settings
-            vim.diagnostic.config({
-                virtual_text = true,
-                signs = true,
-                update_in_insert = true,
-                underline = true,
-                severity_sort = true,
-                float = true
-            })
-            -- key mappings that I like to use for LSP
-            lsp.on_attach(function(client, bufnr)
-                local opts = {buffer = bufnr, remap = false}
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
-                vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
-                vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
-                vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
-            end)
+            -- loading the lsp config and default_capabilities
+            local lspconfig = require('lspconfig')
+            local lsp_capabilities =
+                require('cmp_nvim_lsp').default_capabilities()
 
+            -- setting the lsp motions so that I can easily access functionality
+            vim.api.nvim_create_autocmd('LspAttach', {
+                desc = 'LSP actions',
+                callback = function(event)
+                    local opts = {buffer = event.buf}
+                    -- these are the key maps that I use regularly
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
+                    vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
+
+                    -- don't really ever use these ones
+                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                    vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+                    vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
+                    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+                    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+                end
+            })
+
+            -- setting the default setup; not really sure what this does but it must
+            -- do something for the setup...
+            local default_setup = function(server)
+                lspconfig[server].setup({capabilities = lsp_capabilities})
+            end
+
+            -- setting up mason for easy downloading of my clients to my machine
+            require('mason').setup({})
+            require('mason-lspconfig').setup({
+                ensure_installed = {},
+                handlers = {default_setup}
+            })
+
+            -- setting up cmp for easy use of autocomplete functionality
             local cmp = require('cmp')
-            local cmp_action = require('lsp-zero').cmp_action()
+            require("luasnip.loaders.from_vscode").lazy_load()
 
+            -- defining the configuration options for cmp so that autocomplete works
             cmp.setup({
+                sources = {
+                    {name = "nvim_lsp"},
+                    {name = "luasnip", option = {show_autosnippets = true}}
+                },
                 mapping = cmp.mapping.preset.insert({
-                    -- `Enter` key to confirm completion
+                    -- Enter key confirms completion item
                     ['<CR>'] = cmp.mapping.confirm({select = false}),
 
-                    -- Ctrl+Space to trigger completion menu
-                    ['<C-Space>'] = cmp.mapping.complete(),
-
-                    -- Navigate between snippet placeholder
-                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-                    -- Scroll up and down in the completion documentation
-                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-d>'] = cmp.mapping.scroll_docs(4)
-                })
+                    -- Ctrl + space triggers completion menu
+                    ['<C-Space>'] = cmp.mapping.complete()
+                }),
+                snippet = {
+                    expand = function(args)
+                        require('luasnip').lsp_expand(args.body)
+                    end
+                }
             })
+            cmp.setup.cmdline('/', {sources = {{name = 'buffer'}}})
+
         end
     }, --
+    -- {
+    --     'VonHeikemen/lsp-zero.nvim',
+    --     branch = 'v3.x',
+    --     dependencies = {
+    --         -- LSP Support
+    --         {'neovim/nvim-lspconfig'}, -- Required
+    --         {'williamboman/mason.nvim'}, -- Optional
+    --         {'williamboman/mason-lspconfig.nvim'}, -- Optional
+    --         -- Autocompletion
+    --         {'hrsh7th/nvim-cmp'}, -- Required
+    --         {'hrsh7th/cmp-nvim-lsp'}, -- Required
+    --         {'hrsh7th/cmp-buffer'}, -- Optional
+    --         {'hrsh7th/cmp-path'}, -- Optional
+    --         {'hrsh7th/cmp-nvim-lua'}, -- Optional
+    --         -- Snippets
+    --         {'L3MON4D3/LuaSnip'}, -- Required
+    --         {'rafamadriz/friendly-snippets'} -- Optional
+    --     },
+    --     config = function()
+    --         -- LSP Zero specific configuration
+    --         local lsp = require('lsp-zero')
+    --         lsp.preset('recommended')
+    --         lsp.ensure_installed({
+    --             'gopls', -- golang
+    --             'pyright', -- python
+    --             'rust_analyzer' -- rust
+    --         })
+    --         lsp.nvim_workspace()
+    --         lsp.setup()
+    --         -- setting up the LSP diagnostic settings
+    --         vim.diagnostic.config({
+    --             virtual_text = true,
+    --             signs = true,
+    --             update_in_insert = true,
+    --             underline = true,
+    --             severity_sort = true,
+    --             float = true
+    --         })
+    --         -- key mappings that I like to use for LSP
+    --         lsp.on_attach(function(_, bufnr)
+    --             local opts = {buffer = bufnr, remap = false}
+    --             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
+    --             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
+    --             vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
+    --             vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
+    --             vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
+    --         end)
+    --         -- loading in required information to get cmp working
+    --         local cmp = require('cmp')
+    --         local cmp_action = require('lsp-zero').cmp_action()
+    --         local cmp_format = require('lsp-zero').cmp_format()
+    --         -- ensuring that we are loading our snippets
+    --         require("luasnip.loaders.from_vscode").lazy_load()
+    --         cmp.setup({
+    --             sources = cmp.config.sources({
+    --                 {name = 'nvim_lsp'}, {name = 'luasnip'}
+    --             }),
+    --             mapping = cmp.mapping.preset.insert({
+    --                 -- `Enter` key to confirm completion
+    --                 ['<CR>'] = cmp.mapping.confirm({select = false}),
+    --                 -- Ctrl+Space to trigger completion menu
+    --                 ['<C-Space>'] = cmp.mapping.complete(),
+    --                 -- Navigate between snippet placeholder
+    --                 ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    --                 ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    --                 -- Scroll up and down in the completion documentation
+    --                 ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    --                 ['<C-d>'] = cmp.mapping.scroll_docs(4)
+    --             }),
+    --             formatting = cmp_format,
+    --             snippet = {
+    --                 expand = function(args)
+    --                     require('luasnip').lsp_expand(args.body)
+    --                 end
+    --             }
+    --         })
+    --     end
+    -- }, --
     ---------------------------------------------------------------------------------------- 
     ---- FUZZY FINDER ----------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -341,10 +339,6 @@ require("lazy").setup({
     {'tpope/vim-surround'}, --
     {'sbdchd/neoformat'}, --
     {
-        'folke/which-key.nvim',
-        config = function() require("which-key").setup {} end
-    }, --
-    {
         'folke/trouble.nvim',
         config = function()
             require("trouble").setup {
@@ -366,14 +360,6 @@ require("lazy").setup({
         end
     }, --
     {'ggandor/lightspeed.nvim'}, --
-    {
-        'danymat/neogen',
-        config = function()
-            require('neogen').setup {}
-            vim.keymap.set("", "<leader><leader>d", require('neogen').generate,
-                           {desc = "add in docstring to a function"})
-        end
-    }, --
     {
         "folke/todo-comments.nvim",
         config = function() require("todo-comments").setup {} end
@@ -402,10 +388,6 @@ require("lazy").setup({
         end
     }, --
     {
-        "folke/zen-mode.nvim",
-        config = function() require("zen-mode").setup {} end
-    }, --
-    {
         'Tummetott/reticle.nvim',
         config = function()
             require('reticle').setup {
@@ -428,11 +410,11 @@ require("lazy").setup({
                     -- Show files and directories that start with "."
                     show_hidden = true,
                     -- This function defines what is considered a "hidden" file
-                    is_hidden_file = function(name, bufnr)
+                    is_hidden_file = function(_, _)
                         return false
                     end,
                     -- This function defines what will never be shown, even when `show_hidden` is set
-                    is_always_hidden = function(name, bufnr)
+                    is_always_hidden = function(name, _)
                         local patterns = {"pycache", "DS_Store"}
                         for _, pattern in ipairs(patterns) do
                             if string.match(name, pattern) then
@@ -453,14 +435,10 @@ require("lazy").setup({
         "theHamsta/nvim-dap-virtual-text",
         dependencies = {"mfussenegger/nvim-dap"}
     }, --
-    -- {
-    --     'github/copilot.vim',
-    --     config = function()
-    --         vim.g.copilot_no_tab_map = true
-    --         vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")',
-    --                                 {silent = true, expr = true})
-    --     end
-    -- }, --
+    {
+        "chrisgrieser/nvim-scissors",
+        dependencies = "nvim-telescope/telescope.nvim", -- optional
+    }, --
     ---------------------------------------------------------------------------------------- 
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -469,3 +447,4 @@ require("lazy").setup({
     {'rose-pine/neovim', name = 'rose-pine'}, --
     {"EdenEast/nightfox.nvim"} --
 })
+

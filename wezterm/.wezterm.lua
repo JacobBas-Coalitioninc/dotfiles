@@ -4,9 +4,18 @@ local act = wezterm.action
 
 -- This table will hold the configuration.
 local config = {
-    -- color_scheme = 'Gruvbox dark, medium (base16)',
-    color_scheme = 'Andromeda',
-    font_size = 9.5,
+    color_scheme = 'Gruvbox dark, medium (base16)',
+    -- color_scheme = 'nordfox',
+    -- color_scheme = 'Kanagawa (Gogh)',
+    -- color_scheme = 'rose-pine-moon',
+    -- color_scheme = 'rose-pine-dawn',
+    -- wezterm ls-fonts --list-system
+    font=wezterm.font "Miracode",
+    -- font=wezterm.font "DejaVu Sans Mono for Powerline",
+    -- font=wezterm.font "Anonymous Pro for Powerline",
+    -- font=wezterm.font "Source Code Pro for Powerline",
+    -- font=wezterm.font "Consolas",
+    font_size = 10,
     keys = {
         -- general stuff here
         {key = 'l', mods = 'ALT', action = wezterm.action.ShowLauncher}, -- like a command pallet
@@ -55,6 +64,7 @@ local config = {
     }
 }
 
+
+
 -- and finally, return the configuration to wezterm
 return config
-
