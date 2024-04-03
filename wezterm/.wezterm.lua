@@ -4,9 +4,9 @@ local act = wezterm.action
 
 -- This table will hold the configuration.
 local config = {
-    color_scheme = 'Gruvbox dark, medium (base16)',
+    -- color_scheme = 'Gruvbox dark, medium (base16)',
     -- color_scheme = 'nordfox',
-    -- color_scheme = 'Kanagawa (Gogh)',
+    color_scheme = 'Kanagawa (Gogh)',
     -- color_scheme = 'rose-pine-moon',
     -- color_scheme = 'rose-pine-dawn',
     -- wezterm ls-fonts --list-system

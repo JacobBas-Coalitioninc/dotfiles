@@ -154,7 +154,7 @@ function ColorMyPencils()
             invert_tabline = false,
             invert_intend_guides = false,
             inverse = true, -- invert background for search, diffs, statuslines and errors
-            contrast = "", -- can be "hard", "soft" or empty string
+            contrast = "soft", -- can be "hard", "soft" or empty string
             palette_overrides = {},
             overrides = {},
             dim_inactive = false,
@@ -256,6 +256,10 @@ function ColorMyPencils()
         require("rasmus")
         vim.cmd [[colorscheme rasmus]]
 
+    elseif (vim.g.colorscheme == "ayu-light") then
+        require('ayu')
+        vim.cmd [[colorscheme ayu-light]]
+
     elseif (vim.g.colorscheme == "onedark") then
         require('onedark').setup {
             -- Main options --
@@ -306,6 +310,7 @@ function ColorMyPencils()
 end
 
 vim.g.colorscheme = "gruvbox"
+-- vim.g.colorscheme = "ayu-light"
 -- vim.g.colorscheme = "nightfox"
 -- vim.g.colorscheme = "kanagawa"
 -- vim.g.colorscheme = "rose-pine"
