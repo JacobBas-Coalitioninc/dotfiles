@@ -260,6 +260,24 @@ function ColorMyPencils()
         require('ayu')
         vim.cmd [[colorscheme ayu-light]]
 
+    elseif (vim.g.colorscheme == "cyberdream") then
+        require("cyberdream").setup({
+            -- Enable transparent background
+            transparent = false,
+            -- Enable italics comments
+            italic_comments = true,
+            -- Replace all fillchars with ' ' for the ultimate clean look
+            hide_fillchars = false,
+            -- Modern borderless telescope theme
+            borderless_telescope = true,
+            -- Set terminal colors used in `:terminal`
+            terminal_colors = true,
+            theme = {
+                variant = "default", -- use "light" for the light variant
+            }
+        })
+        vim.cmd [[colorscheme cyberdream]]
+
     elseif (vim.g.colorscheme == "onedark") then
         require('onedark').setup {
             -- Main options --
@@ -310,6 +328,7 @@ function ColorMyPencils()
 end
 
 vim.g.colorscheme = "gruvbox"
+-- vim.g.colorscheme = "cyberdream"
 -- vim.g.colorscheme = "ayu-light"
 -- vim.g.colorscheme = "nightfox"
 -- vim.g.colorscheme = "kanagawa"

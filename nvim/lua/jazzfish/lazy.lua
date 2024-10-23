@@ -68,14 +68,6 @@ require("lazy").setup({
         -- end
     }, --
     {'airblade/vim-gitgutter'}, --
-    {
-        'pwntester/octo.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim',
-            'nvim-tree/nvim-web-devicons'
-        },
-        config = function() require("octo").setup() end
-    }, --
     ---------------------------------------------------------------------------------------- 
     ---- LANGUAGE SUPPORT ------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -174,84 +166,6 @@ require("lazy").setup({
 
         end
     }, --
-    -- {
-    --     'VonHeikemen/lsp-zero.nvim',
-    --     branch = 'v3.x',
-    --     dependencies = {
-    --         -- LSP Support
-    --         {'neovim/nvim-lspconfig'}, -- Required
-    --         {'williamboman/mason.nvim'}, -- Optional
-    --         {'williamboman/mason-lspconfig.nvim'}, -- Optional
-    --         -- Autocompletion
-    --         {'hrsh7th/nvim-cmp'}, -- Required
-    --         {'hrsh7th/cmp-nvim-lsp'}, -- Required
-    --         {'hrsh7th/cmp-buffer'}, -- Optional
-    --         {'hrsh7th/cmp-path'}, -- Optional
-    --         {'hrsh7th/cmp-nvim-lua'}, -- Optional
-    --         -- Snippets
-    --         {'L3MON4D3/LuaSnip'}, -- Required
-    --         {'rafamadriz/friendly-snippets'} -- Optional
-    --     },
-    --     config = function()
-    --         -- LSP Zero specific configuration
-    --         local lsp = require('lsp-zero')
-    --         lsp.preset('recommended')
-    --         lsp.ensure_installed({
-    --             'gopls', -- golang
-    --             'pyright', -- python
-    --             'rust_analyzer' -- rust
-    --         })
-    --         lsp.nvim_workspace()
-    --         lsp.setup()
-    --         -- setting up the LSP diagnostic settings
-    --         vim.diagnostic.config({
-    --             virtual_text = true,
-    --             signs = true,
-    --             update_in_insert = true,
-    --             underline = true,
-    --             severity_sort = true,
-    --             float = true
-    --         })
-    --         -- key mappings that I like to use for LSP
-    --         lsp.on_attach(function(_, bufnr)
-    --             local opts = {buffer = bufnr, remap = false}
-    --             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
-    --             vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
-    --             vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
-    --             vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
-    --             vim.keymap.set("n", "gq", vim.lsp.buf.workspace_symbol, opts) -- query a symbol within the workspace
-    --         end)
-    --         -- loading in required information to get cmp working
-    --         local cmp = require('cmp')
-    --         local cmp_action = require('lsp-zero').cmp_action()
-    --         local cmp_format = require('lsp-zero').cmp_format()
-    --         -- ensuring that we are loading our snippets
-    --         require("luasnip.loaders.from_vscode").lazy_load()
-    --         cmp.setup({
-    --             sources = cmp.config.sources({
-    --                 {name = 'nvim_lsp'}, {name = 'luasnip'}
-    --             }),
-    --             mapping = cmp.mapping.preset.insert({
-    --                 -- `Enter` key to confirm completion
-    --                 ['<CR>'] = cmp.mapping.confirm({select = false}),
-    --                 -- Ctrl+Space to trigger completion menu
-    --                 ['<C-Space>'] = cmp.mapping.complete(),
-    --                 -- Navigate between snippet placeholder
-    --                 ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    --                 ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-    --                 -- Scroll up and down in the completion documentation
-    --                 ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    --                 ['<C-d>'] = cmp.mapping.scroll_docs(4)
-    --             }),
-    --             formatting = cmp_format,
-    --             snippet = {
-    --                 expand = function(args)
-    --                     require('luasnip').lsp_expand(args.body)
-    --                 end
-    --             }
-    --         })
-    --     end
-    -- }, --
     ---------------------------------------------------------------------------------------- 
     ---- FUZZY FINDER ----------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -305,7 +219,6 @@ require("lazy").setup({
 
         end
     }, --
-    -- {'nvim-treesitter/playground'}, --
     ---------------------------------------------------------------------------------------- 
     ---- DIAGNOSTICS -----------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -392,8 +305,8 @@ require("lazy").setup({
         config = function()
             require('reticle').setup {
                 -- add options here if you want to overwrite defaults
+                on_startup = {cursorline = true, cursorcolumn = true}
             }
-            require('reticle').enable_cursorcross()
         end
     }, -- 
     {
@@ -439,54 +352,46 @@ require("lazy").setup({
         "chrisgrieser/nvim-scissors",
         dependencies = "nvim-telescope/telescope.nvim" -- optional
     }, --
-    {
-        "zbirenbaum/copilot.lua",
-        config = function()
-            require('copilot').setup({
-                panel = {
-                    enabled = true,
-                    auto_refresh = false,
-                    keymap = {
-                        jump_prev = "[[",
-                        jump_next = "]]",
-                        accept = "<CR>",
-                        refresh = "gr",
-                        open = "<M-CR>"
-                    },
-                    layout = {
-                        position = "bottom", -- | top | left | right
-                        ratio = 0.4
-                    }
-                },
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = false,
-                    debounce = 75,
-                    keymap = {
-                        accept = "<M-l>",
-                        accept_word = false,
-                        accept_line = false,
-                        next = "<M-]>",
-                        prev = "<M-[>",
-                        dismiss = "<C-]>"
-                    }
-                },
-                filetypes = {
-                    yaml = false,
-                    markdown = false,
-                    help = false,
-                    gitcommit = false,
-                    gitrebase = false,
-                    hgcommit = false,
-                    svn = false,
-                    cvs = false,
-                    ["."] = false
-                },
-                copilot_node_command = 'node', -- Node.js version must be > 18.x
-                server_opts_overrides = {}
-            })
-        end
-    },
+    -- {
+    --     "zbirenbaum/copilot.lua",
+    --     config = function()
+    --         require('copilot').setup({
+    --             panel = {enabled = false},
+    --             suggestion = {
+    --                 enabled = true,
+    --                 auto_trigger = true,
+    --                 debounce = 75,
+    --                 keymap = {
+    --                     accept = "<Tab>",
+    --                     accept_word = false,
+    --                     accept_line = false,
+    --                     next = "<M-]>",
+    --                     prev = "<M-[>",
+    --                     dismiss = "<C-]>"
+    --                 }
+    --             },
+    --             filetypes = {
+    --                 yaml = false,
+    --                 markdown = false,
+    --                 help = false,
+    --                 gitcommit = false,
+    --                 gitrebase = false,
+    --                 hgcommit = false,
+    --                 svn = false,
+    --                 cvs = false,
+    --                 python = true,
+    --                 rust = true,
+    --                 go = true,
+    --                 javascript = true,
+    --                 typescript = true,
+    --                 lua = true,
+    --                 ["."] = false
+    --             },
+    --             copilot_node_command = 'node', -- Node.js version must be > 18.x
+    --             server_opts_overrides = {}
+    --         })
+    --     end
+    -- },
     ---------------------------------------------------------------------------------------- 
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -494,6 +399,7 @@ require("lazy").setup({
     {'rebelot/kanagawa.nvim'}, --
     {'rose-pine/neovim', name = 'rose-pine'}, --
     {"EdenEast/nightfox.nvim"}, --
-    {'Shatur/neovim-ayu'}
+    {'Shatur/neovim-ayu'}, --
+    {"scottmckendry/cyberdream.nvim", lazy = false, priority = 1000}
 })
 
