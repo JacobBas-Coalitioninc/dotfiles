@@ -258,7 +258,7 @@ function ColorMyPencils()
 
     elseif (vim.g.colorscheme == "ayu-light") then
         require('ayu')
-        vim.cmd [[colorscheme ayu-light]]
+        vim.cmd [[colorscheme ayu-mirage]]
 
     elseif (vim.g.colorscheme == "cyberdream") then
         require("cyberdream").setup({
@@ -273,7 +273,7 @@ function ColorMyPencils()
             -- Set terminal colors used in `:terminal`
             terminal_colors = true,
             theme = {
-                variant = "default", -- use "light" for the light variant
+                variant = "default" -- use "light" for the light variant
             }
         })
         vim.cmd [[colorscheme cyberdream]]
@@ -324,13 +324,10 @@ function ColorMyPencils()
 
         -- making sure lualine is configured
         require('lualine').setup {options = {theme = "onedark"}}
+
+    elseif (vim.g.colorscheme == "acme") then
+        require("jazzfish.acme-color-scheme").setup{}
     end
 end
 
-vim.g.colorscheme = "gruvbox"
--- vim.g.colorscheme = "cyberdream"
--- vim.g.colorscheme = "ayu-light"
--- vim.g.colorscheme = "nightfox"
--- vim.g.colorscheme = "kanagawa"
--- vim.g.colorscheme = "rose-pine"
 ColorMyPencils()

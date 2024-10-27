@@ -27,6 +27,15 @@ opt.hidden = true
 -- opt.cmdheight = 0
 opt.mouse = ""
 
+-- -- setting the colortheme
+-- g.colorscheme = "gruvbox"
+-- g.colorscheme = "cyberdream"
+-- g.colorscheme = "ayu-light"
+-- g.colorscheme = "nightfox"
+-- g.colorscheme = "kanagawa"
+-- g.colorscheme = "rose-pine"
+g.colorscheme = "acme"
+
 opt.updatetime = 50
 
 opt.swapfile = false

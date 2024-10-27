@@ -24,8 +24,8 @@ require("lazy").setup({
                 options = {
                     icons_enabled = true,
                     theme = 'auto',
-                    component_separators = {left = '', right = ''},
-                    section_separators = {left = '', right = ''},
+                    component_separators = {left = '', right = ''},
+                    section_separators = {left = '', right = ''},
                     disabled_filetypes = {},
                     always_divide_middle = true,
                     globalstatus = true
@@ -49,8 +49,10 @@ require("lazy").setup({
                 tabline = {},
                 extensions = {}
             }
+
             vim.opt.laststatus = 3
             vim.cmd('highlight WinSeparator guibg=None')
+
         end
     }, -- 
     {"nvim-pack/nvim-spectre"}, --
@@ -352,46 +354,20 @@ require("lazy").setup({
         "chrisgrieser/nvim-scissors",
         dependencies = "nvim-telescope/telescope.nvim" -- optional
     }, --
-    -- {
-    --     "zbirenbaum/copilot.lua",
-    --     config = function()
-    --         require('copilot').setup({
-    --             panel = {enabled = false},
-    --             suggestion = {
-    --                 enabled = true,
-    --                 auto_trigger = true,
-    --                 debounce = 75,
-    --                 keymap = {
-    --                     accept = "<Tab>",
-    --                     accept_word = false,
-    --                     accept_line = false,
-    --                     next = "<M-]>",
-    --                     prev = "<M-[>",
-    --                     dismiss = "<C-]>"
-    --                 }
-    --             },
-    --             filetypes = {
-    --                 yaml = false,
-    --                 markdown = false,
-    --                 help = false,
-    --                 gitcommit = false,
-    --                 gitrebase = false,
-    --                 hgcommit = false,
-    --                 svn = false,
-    --                 cvs = false,
-    --                 python = true,
-    --                 rust = true,
-    --                 go = true,
-    --                 javascript = true,
-    --                 typescript = true,
-    --                 lua = true,
-    --                 ["."] = false
-    --             },
-    --             copilot_node_command = 'node', -- Node.js version must be > 18.x
-    --             server_opts_overrides = {}
-    --         })
-    --     end
-    -- },
+    {
+        "LunarVim/bigfile.nvim",
+        config = function()
+            -- default config
+            require("bigfile").setup {
+                filesize = 2, -- size of the file in MiB, the plugin round file sizes to the closest MiB
+                pattern = {"*"}, -- autocmd pattern or function see <### Overriding the detection of big files>
+                features = { -- features to disable
+                    "indent_blankline", "illuminate", "lsp", "treesitter",
+                    "syntax", "matchparen", "vimopts", "filetype"
+                }
+            }
+        end
+    }, --
     ---------------------------------------------------------------------------------------- 
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
@@ -402,4 +378,3 @@ require("lazy").setup({
     {'Shatur/neovim-ayu'}, --
     {"scottmckendry/cyberdream.nvim", lazy = false, priority = 1000}
 })
-
