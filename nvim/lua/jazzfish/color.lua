@@ -1,3 +1,4 @@
+local vim = vim
 local cmd = vim.cmd -- to exectue vim commands
 
 function ColorMyPencils()

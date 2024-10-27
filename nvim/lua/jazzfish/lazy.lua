@@ -1,3 +1,4 @@
+local vim = vim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -309,6 +310,7 @@ require("lazy").setup({
                 -- add options here if you want to overwrite defaults
                 on_startup = {cursorline = true, cursorcolumn = true}
             }
+            vim.api.nvim_set_hl(0, 'CursorLine', {underline = true})
         end
     }, -- 
     {

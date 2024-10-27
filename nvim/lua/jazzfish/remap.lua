@@ -1,3 +1,4 @@
+local vim = vim
 vim.keymap.set("n", "<leader>wv", "<cmd>vsplit<cr>", {}) -- split window vertically
 vim.keymap.set("n", "<leader>wh", "<cmd>split<cr>", {}) -- split window horizontally
 vim.keymap.set("n", "<leader>w<Left>", "<C-w>h", {}) -- move to left window

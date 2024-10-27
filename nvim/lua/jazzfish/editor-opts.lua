@@ -1,3 +1,4 @@
+local vim = vim
 local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
 
@@ -24,7 +25,7 @@ opt.hlsearch = false
 opt.scrolloff = 8
 opt.number = true
 opt.hidden = true
--- opt.cmdheight = 0
+opt.cmdheight = 0
 opt.mouse = ""
 
 -- -- setting the colortheme
@@ -35,8 +36,18 @@ opt.mouse = ""
 -- g.colorscheme = "kanagawa"
 -- g.colorscheme = "rose-pine"
 g.colorscheme = "acme"
+vim.o.background = 'light' -- 'light' or 'dark'
 
-opt.updatetime = 50
+opt.updatetime = 500
+opt.redrawtime = 1000  -- ms to wait for syntax highlighting
+opt.synmaxcol = 240    -- max column for syntax highlighting
+
+-- ignore the file type for csv files since they are very slow
+-- when we use the built in noevim identifiers
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = "*.csv",
+    command = "set filetype="
+})
 
 opt.swapfile = false
 opt.backup = false
