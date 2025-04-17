@@ -9,6 +9,8 @@ M.colors = {
         bg = '#ffffd7', -- Slightly darker yellow background
         fg = '#000000', -- Black text
         fg_blue = '#0b67b3', -- Blue-black text
+        fg_green = '#478c04', -- Green text 
+        fg_red = '#8c1f04', -- Red text
         comment = '#999999', -- Grey for comments
         selection = '#eeee9e', -- Darker yellow for selection
         subtle = '#eaffff', -- Very light blue for subtle highlights
@@ -21,6 +23,8 @@ M.colors = {
         bg = '#000028', -- Inverted from #ffffd7
         fg = '#ffffff', -- Inverted from #000000
         fg_blue = '#f4984c', -- Inverted from #0b67b3
+        fg_green = '#478c04', -- Green text 
+        fg_red = '#8c1f04', -- Red text
         comment = '#666666', -- Inverted from #999999
         selection = '#111161', -- Inverted from #eeee9e
         subtle = '#150000', -- Inverted from #eaffff
@@ -80,10 +84,10 @@ function M.get_highlights()
         Function = {fg = colors.fg},
         Statement = {fg = colors.fg},
         Operator = {fg = colors.fg, bold = true},
-        Keyword = {fg = colors.fg, underline = true},
+        Keyword = {fg = colors.fg_green, underline = true, bold = true},
         Type = {fg = colors.fg, bold = true},
         Special = {fg = colors.fg},
-        PreProc = {fg = colors.fg},
+        PreProc = {fg = colors.fg_red, bold=true},
 
         -- Git highlights
         DiffAdd = {bg = '#2a4d30'},

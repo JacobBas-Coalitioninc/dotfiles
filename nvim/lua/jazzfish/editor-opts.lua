@@ -29,14 +29,14 @@ opt.cmdheight = 0
 opt.mouse = ""
 
 -- -- setting the colortheme
--- g.colorscheme = "gruvbox"
+g.colorscheme = "gruvbox"
 -- g.colorscheme = "cyberdream"
 -- g.colorscheme = "ayu-light"
 -- g.colorscheme = "nightfox"
 -- g.colorscheme = "kanagawa"
 -- g.colorscheme = "rose-pine"
-g.colorscheme = "acme"
-vim.o.background = 'light' -- 'light' or 'dark'
+-- g.colorscheme = 'acme'
+-- vim.o.background = 'light' -- 'light' or 'dark'
 
 opt.updatetime = 500
 opt.redrawtime = 1000  -- ms to wait for syntax highlighting

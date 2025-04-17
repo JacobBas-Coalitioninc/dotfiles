@@ -35,7 +35,6 @@
   "oil.nvim": { "branch": "master", "commit": "f60bb7f793477d99ef1acf39e920bf2ca4e644de" },
   "plenary.nvim": { "branch": "master", "commit": "ec289423a1693aeae6cd0d503bac2856af74edaa" },
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
-  "rainbow_csv": { "branch": "master", "commit": "3dbbfd7d17536aebfb80f571255548495574c32b" },
   "reticle.nvim": { "branch": "main", "commit": "e90aa929b989c093df1de1780afe25e48553f5ce" },
   "rose-pine": { "branch": "main", "commit": "8b1fd252255a7f2c41b4192a787ab62660b29f72" },
   "rust.vim": { "branch": "master", "commit": "889b9a7515db477f4cb6808bef1769e53493c578" },
@@ -47,6 +46,7 @@
   "vim-commentary": { "branch": "master", "commit": "c4b8f52cbb7142ec239494e5a2c4a512f92c4d07" },
   "vim-fugitive": { "branch": "master", "commit": "d4877e54cef67f5af4f950935b1ade19ed6b7370" },
   "vim-gitgutter": { "branch": "main", "commit": "7b0b5098e3e57be86bb96cfbf2b8902381eef57c" },
+  "vim-illuminate": { "branch": "master", "commit": "5eeb7951fc630682c322e88a9bbdae5c224ff0aa" },
   "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" },
   "vim-rhubarb": { "branch": "master", "commit": "ee69335de176d9325267b0fd2597a22901d927b1" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" }

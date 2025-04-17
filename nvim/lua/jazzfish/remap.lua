@@ -21,6 +21,7 @@ vim.keymap.set("n", "<leader>vd", "<cmd>terminal vd % startinsert <cr>") -- open
 vim.keymap.set("n", "<leader>no", "<cmd>e ~/.notes/main.md<cr>", {}) -- opens up a notes file within my notes directory
 vim.keymap.set("n", "<leader>nt", "<cmd>e ~/.notes/todo.md<cr>", {}) -- opens up a notes file within my notes directory
 vim.keymap.set("n", "<leader>ns", "<cmd>e ~/.notes/scratch.md<cr>", {}) -- opens up a notes file within my notes directory
+vim.keymap.set("n", "<leader>nm", "<cmd>e ~/.notes/main.txt<cr>", {}) -- opens up a notes file within my notes directory
 
 
 -- nvim-scissors keymaps
