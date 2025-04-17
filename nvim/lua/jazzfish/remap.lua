@@ -17,19 +17,15 @@ vim.cmd("autocmd TermOpen * startinsert") -- start the terminal in insert mode
 vim.cmd("autocmd TermClose * execute 'bdelete! ' . expand('<abuf>')") -- quick exit the terminal
 vim.keymap.set("n", "<leader>vd", "<cmd>terminal vd % startinsert <cr>") -- opens up visidata on the current file
 
--- some helpful shortcuts for workign with notes files
-vim.keymap.set("n", "<leader>no", "<cmd>e ~/.notes/main.md<cr>", {}) -- opens up a notes file within my notes directory
-vim.keymap.set("n", "<leader>nt", "<cmd>e ~/.notes/todo.md<cr>", {}) -- opens up a notes file within my notes directory
-vim.keymap.set("n", "<leader>ns", "<cmd>e ~/.notes/scratch.md<cr>", {}) -- opens up a notes file within my notes directory
+-- some helpful shortcuts for working with notes files
+vim.cmd([[command! UpdateNotes execute '!go run ~/.notes/create_main.go']])
 vim.keymap.set("n", "<leader>nm", "<cmd>e ~/.notes/main.txt<cr>", {}) -- opens up a notes file within my notes directory
+vim.keymap.set("n", "<leader>nu", "<cmd>UpdateNotes<cr>", {}) -- update notes with the go script
 
 
 -- nvim-scissors keymaps
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
---
--- pasting the date to the current cursor position
--- vim.keymap.set("n", "<leader>q", "<cmd>pu=strftime('%c')<cr>")
 
 -- ensures that GBrowse is working from vim.rhubarb; we place this here within the remap
 -- file since it seems that there are some strange interactions that are happening within
