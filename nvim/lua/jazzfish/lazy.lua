@@ -254,27 +254,6 @@ require("lazy").setup({
     {'tpope/vim-commentary'}, --
     {'tpope/vim-surround'}, --
     {'sbdchd/neoformat'}, --
-    {
-        'folke/trouble.nvim',
-        config = function()
-            require("trouble").setup {
-                position = "bottom", -- position of the list can be: bottom, top, left, right
-                height = 20 -- height of the trouble list when position is top or bottom
-            }
-            vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-                           {silent = true, noremap = true})
-            vim.keymap.set("n", "<leader>xw",
-                           "<cmd>TroubleToggle workspace_diagnostics<cr>",
-                           {silent = true, noremap = true})
-            vim.keymap.set("n", "<leader>xd",
-                           "<cmd>TroubleToggle document_diagnostics<cr>",
-                           {silent = true, noremap = true})
-            vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-                           {silent = true, noremap = true})
-            vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-                           {silent = true, noremap = true})
-        end
-    }, --
     {'ggandor/lightspeed.nvim'}, --
     {
         "folke/todo-comments.nvim",
@@ -375,9 +354,7 @@ require("lazy").setup({
     ---- THEMES ----------------------------------------------------------------------------
     ---------------------------------------------------------------------------------------- 
     {'ellisonleao/gruvbox.nvim'}, --
-    {'rebelot/kanagawa.nvim'}, --
-    {'rose-pine/neovim', name = 'rose-pine'}, --
-    {"EdenEast/nightfox.nvim"}, --
-    {'Shatur/neovim-ayu'}, --
-    {"scottmckendry/cyberdream.nvim", lazy = false, priority = 1000}
+    ---------------------------------------------------------------------------------------- 
+    ---- AI STUFF --------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------- 
 })
