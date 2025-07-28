@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>b", "<C-o>", {}) -- go to previous cursor position
 vim.keymap.set("n", "<leader>dv", "<cmd>DiffviewToggle<cr>", {desc = "Toggle Diffview"})
 
 -- =============================================================================
--- AI-ASSISTED EDITING COPY COMMANDS
+-- AI-ASSISTED COPY COMMANDS
 -- =============================================================================
 -- These commands copy various file and code contexts to the system clipboard
 -- in formats that AI assistants (like Cursor, ChatGPT, etc.) can easily parse
@@ -128,6 +128,75 @@ vim.keymap.set("n", "<leader>yg", function()
     vim.notify("Not in a git repository or git blame failed", vim.log.levels.WARN)
   end
 end, {desc = "Copy git blame context"})
+
+-- =============================================================================
+-- LSP KEYMAPS
+-- =============================================================================
+-- LSP keymaps are set up in an autocmd to ensure they only apply to buffers with LSP attached
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        local opts = {buffer = event.buf}
+        -- Primary LSP keymaps that are used regularly
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- hover option
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts) -- go to definition
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts) -- go to reference
+        vim.keymap.set("n", "ga", vim.lsp.buf.rename, opts) -- rename
+
+        -- Secondary LSP keymaps (less frequently used)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
+        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    end
+})
+
+-- =============================================================================
+-- TELESCOPE KEYMAPS
+-- =============================================================================
+vim.keymap.set("n", "<leader>ff", require('telescope.builtin').find_files, {})
+vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers, {})
+vim.keymap.set("n", "<leader>fg", require('telescope.builtin').live_grep, {})
+vim.keymap.set("n", "<leader>fd", require('telescope.builtin').diagnostics, {})
+vim.keymap.set("n", "<leader>fr", require('telescope.builtin').lsp_references, {})
+vim.keymap.set("n", "<leader>fh", require('telescope.builtin').help_tags, {})
+
+-- =============================================================================
+-- LSP LINES TOGGLE
+-- =============================================================================
+local function toggle_lsp_lines()
+    vim.diagnostic.config({
+        virtual_text = not vim.diagnostic.config()["virtual_text"]
+    })
+    require("lsp_lines").toggle()
+end
+vim.keymap.set("", "<Leader>d", toggle_lsp_lines, {desc = "Toggle lsp_lines"})
+
+-- =============================================================================
+-- HARPoon KEYMAPS
+-- =============================================================================
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+-- Access to the menu
+vim.keymap.set("n", "<leader>ha", mark.add_file)
+vim.keymap.set("n", "<leader>hh", ui.toggle_quick_menu)
+-- Quick access to loaded files; this maps the files to the numbers 1 through 9
+for i = 1, 9 do
+    vim.keymap.set("n", "<leader>" .. tostring(i), function() ui.nav_file(i) end)
+end
+
+-- =============================================================================
+-- UNDOTREE KEYMAPS
+-- =============================================================================
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+-- =============================================================================
+-- OIL FILE EXPLORER KEYMAPS
+-- =============================================================================
+vim.keymap.set("n", "<leader>t", require("oil").open, {silent = true, noremap = true})
 
 -- CSV File Specific Settings and Mappings
 -- Automatically enter insert mode when opening a terminal buffer

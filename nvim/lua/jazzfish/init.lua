@@ -2,3 +2,4 @@ require("jazzfish.editor-opts") -- <- this must come first due to leader remap o
 require("jazzfish.lazy")
 require("jazzfish.color")
 require("jazzfish.remap")
+require("jazzfish.snippets").setup()
