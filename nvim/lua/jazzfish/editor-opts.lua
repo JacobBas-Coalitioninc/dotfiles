@@ -30,6 +30,7 @@ opt.mouse = ""
 
 -- -- setting the colortheme
 g.colorscheme = "gruvbox"
+-- g.colorscheme = "everforest"
 -- g.colorscheme = "cyberdream"
 -- g.colorscheme = "ayu-light"
 -- g.colorscheme = "nightfox"

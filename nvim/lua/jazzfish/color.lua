@@ -144,24 +144,40 @@ function ColorMyPencils()
         vim.cmd("highlight VertSplit guifg=#546f8f")
 
     elseif (vim.g.colorscheme == "gruvbox") then
-        require("gruvbox").setup({
-            undercurl = true,
-            underline = true,
-            bold = true,
-            italic = {strings = true, operators = true, comments = true},
-            strikethrough = true,
-            invert_selection = false,
-            invert_signs = false,
-            invert_tabline = false,
-            invert_intend_guides = false,
-            inverse = true, -- invert background for search, diffs, statuslines and errors
-            contrast = "soft", -- can be "hard", "soft" or empty string
-            palette_overrides = {},
-            overrides = {},
-            dim_inactive = false,
-            transparent_mode = false
-        })
-        vim.cmd.colorscheme "gruvbox"
+        -- require("gruvbox").setup({
+        --     undercurl = true,
+        --     underline = true,
+        --     bold = true,
+        --     italic = {strings = true, operators = true, comments = true},
+        --     strikethrough = true,
+        --     invert_selection = false,
+        --     invert_signs = false,
+        --     invert_tabline = false,
+        --     invert_intend_guides = false,
+        --     inverse = true, -- invert background for search, diffs, statuslines and errors
+        --     contrast = "soft", -- can be "hard", "soft" or empty string
+        --     palette_overrides = {},
+        --     overrides = {},
+        --     dim_inactive = false,
+        --     transparent_mode = false
+        -- })
+        -- vim.cmd.colorscheme "gruvbox"
+
+        local options = {
+            ["background"] = "soft", -- Options: "hard", "medium", "soft"
+            ["enable_italic"] = 1, -- Use 1 for true, 0 for false
+            -- ["transparent_background"] = 1, -- Use 1 for editor, 2 for editor & UI
+            -- ["dim_inactive_windows"] = 1, -- Dims background of inactive windows
+            -- ["disable_italic_comment"] = 1, -- Use 1 to disable italic comments
+            ["ui_contrast"] = "high", -- Options: "low", "high"
+        }
+        for key, value in pairs(options) do
+            vim.g["gruvbox_material_" .. key] = value
+        end
+        vim.cmd.colorscheme "gruvbox-material"
+        --
+        -- ensure that lualine is also using this color theme
+        require('lualine').setup {options = {theme = "gruvbox-material"}}
 
     elseif (vim.g.colorscheme == "nightfox") then
         -- Default options
@@ -327,7 +343,27 @@ function ColorMyPencils()
         require('lualine').setup {options = {theme = "onedark"}}
 
     elseif (vim.g.colorscheme == "acme") then
-        require("jazzfish.acme-color-scheme").setup{}
+        require("jazzfish.acme-color-scheme").setup {}
+
+    elseif (vim.g.colorscheme == "everforest") then
+        -- configuration options for this specific theme
+        local options = {
+            ["background"] = "hard" -- Options: "hard", "medium", "soft"
+            -- ["enable_italic"] = 1, -- Use 1 for true, 0 for false
+            -- ["transparent_background"] = 1, -- Use 1 for editor, 2 for editor & UI
+            -- ["dim_inactive_windows"] = 1, -- Dims background of inactive windows
+            -- ["disable_italic_comment"] = 1, -- Use 1 to disable italic comments
+            -- ["ui_contrast"] = "high", -- Options: "low", "high"
+        }
+        for key, value in pairs(options) do
+            vim.g["everforest_" .. key] = value
+        end
+
+        -- setting the color theme
+        vim.cmd.colorscheme "everforest"
+
+        -- ensure that lualine is also using this color theme
+        require('lualine').setup {options = {theme = "everforest"}}
     end
 end
 
