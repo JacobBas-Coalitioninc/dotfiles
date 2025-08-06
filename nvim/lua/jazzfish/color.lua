@@ -164,7 +164,7 @@ function ColorMyPencils()
         -- vim.cmd.colorscheme "gruvbox"
 
         local options = {
-            ["background"] = "soft", -- Options: "hard", "medium", "soft"
+            ["background"] = "medium", -- Options: "hard", "medium", "soft"
             ["enable_italic"] = 1, -- Use 1 for true, 0 for false
             -- ["transparent_background"] = 1, -- Use 1 for editor, 2 for editor & UI
             -- ["dim_inactive_windows"] = 1, -- Dims background of inactive windows

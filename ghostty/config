@@ -1,0 +1,21 @@
+# Ghostty Configuration converted from WezTerm
+
+# Color scheme - Gruvbox dark
+theme = GruvboxDark
+
+# Font configuration
+font-family = "Monaspace Neon"
+font-size = 12
+
+# Keybindings
+# General stuff
+keybind = alt+l=show_launcher
+
+# Tab management
+keybind = super+shift+t=new_tab
+keybind = super+shift+right=next_tab
+keybind = super+shift+left=previous_tab
+
+# Split configurations
+keybind = ctrl+shift+v=new_split:right
+keybind = ctrl+shift+h=new_split:down
