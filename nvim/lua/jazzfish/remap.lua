@@ -10,7 +10,8 @@ vim.keymap.set("n", "<leader>w<Up>", "<C-w>k", {}) -- move to up window
 vim.keymap.set("n", "<leader>b", "<C-o>", {}) -- go to previous cursor position
 
 -- Diffview Plugin Toggle
-vim.keymap.set("n", "<leader>dv", "<cmd>DiffviewToggle<cr>", {desc = "Toggle Diffview"})
+vim.keymap.set("n", "<leader>dvo", "<cmd>DiffviewOpen origin/HEAD<cr>", {desc = "Toggle Diffview"})
+vim.keymap.set("n", "<leader>dvc", "<cmd>DiffviewClose<cr>", {desc = "Toggle Diffview"})
 
 -- =============================================================================
 -- AI-ASSISTED COPY COMMANDS

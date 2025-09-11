@@ -4,13 +4,11 @@
 theme = GruvboxDark
 
 # Font configuration
-font-family = "Monaspace Neon"
+# font-family = "Monaspace Neon"
+font-family = "Terminess Nerd Font Mono"
 font-size = 12
 
 # Keybindings
-# General stuff
-keybind = alt+l=show_launcher
-
 # Tab management
 keybind = super+shift+t=new_tab
 keybind = super+shift+right=next_tab
